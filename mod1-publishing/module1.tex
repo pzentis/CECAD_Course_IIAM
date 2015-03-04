@@ -11,7 +11,7 @@ Typically, most pictures you work with (scanned documents, photos taken with a d
 
 \begin{figure}[!ht]
 	\centering
-		\includegraphics[width=0.60\textwidth]{modules/mod1-publishing/figures/bitmap-graphics.png}
+		\includegraphics[width=0.60\textwidth]{mod1-publishing/figures/bitmap-graphics.png}
 	\caption{Fluorescent labeled mitochondria in HeLa cells. THis image shows that raster graphics are made up of pixels that become clearly visible when zoomed.}
 	\label{fig:bitmap-graphics}
 \end{figure}
@@ -47,7 +47,7 @@ Resampling an image changes the original data; the number of pixels is either in
 \begin{figure}[!ht]
 	\captionsetup{justification=centering}
 	\centering
-		\includegraphics{modules/mod1-publishing/figures/adjust-canvas-dialog.png}
+		\includegraphics{mod1-publishing/figures/adjust-canvas-dialog.png}
 		\caption{Adjust Canvas Size Dialog.}\label{fig:adjust-canvas-dialog}
 \end{figure}
 
@@ -77,7 +77,7 @@ Publishers usually require that you submit your figures in 300-600 DPI (meaning 
 	\begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.3\textwidth]{modules/mod1-publishing/figures/adjust-size-dialog.png}%
+			\includegraphics[width=0.3\textwidth]{mod1-publishing/figures/adjust-size-dialog.png}%
 		}
 		\medskip
 		\captionof{figure}{Adjust Size Dialog.}\label{fig:adjust-size-dialog}
@@ -89,7 +89,7 @@ Publishers usually require that you submit your figures in 300-600 DPI (meaning 
 	\begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.7\textwidth]{modules/mod1-publishing/figures/line-tool.png}%
+			\includegraphics[width=0.7\textwidth]{mod1-publishing/figures/line-tool.png}%
 		}
 		\medskip
 		\captionof{figure}{Line tool selection and values.}\label{fig:line-tool}
@@ -110,7 +110,7 @@ Publishers usually require that you submit your figures in 300-600 DPI (meaning 
 	\begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.7\textwidth]{modules/mod1-publishing/figures/pixel-position.png}%
+			\includegraphics[width=0.7\textwidth]{mod1-publishing/figures/pixel-position.png}%
 		}
 		\medskip
 		\captionof{figure}{Pixel position and value.}\label{fig:pixel-position}
@@ -138,7 +138,7 @@ Let us go back to our main question of making figures for a manuscript that we w
 Fiji also has the option to directly interpolate the image to a given size and DPI (PPI!) using \texttt{[Image > Adjust > Scale To DPI]}. Using this function, you do not have to calculate the values yourself using the \texttt{[Adjust Size]} function (Fig. \ref{fig:scale-to-dpi-dialog}).
 \begin{figure}[!h]
 	\centering
-		\includegraphics[width=0.3\textwidth]{modules/mod1-publishing/figures/scale-to-dpi-dialog.png}
+		\includegraphics[width=0.3\textwidth]{mod1-publishing/figures/scale-to-dpi-dialog.png}
 	\caption{Scale to DPI dialog.}
 	\label{fig:scale-to-dpi-dialog}
 \end{figure}
@@ -172,7 +172,7 @@ When you prepare your figures, bit-depth is usually not a big issue. However, yo
 	\begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.5\textwidth]{modules/mod1-publishing/figures/line-roi-example.png}%
+			\includegraphics[width=0.5\textwidth]{mod1-publishing/figures/line-roi-example.png}%
 		}
 		\medskip
 		\captionof{figure}{A line ROI through one of the beads.}\label{fig:line-roi-example}
@@ -184,7 +184,7 @@ When you prepare your figures, bit-depth is usually not a big issue. However, yo
 \begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.5\textwidth]{modules/mod1-publishing/figures/plot-profile-example.png}%
+			\includegraphics[width=0.5\textwidth]{mod1-publishing/figures/plot-profile-example.png}%
 		}
 		\medskip
 		\captionof{figure}{Intensity profile of the line.}\label{fig:plot-profile-example}
@@ -228,4 +228,175 @@ Fiji allows you to work with all these image types and we will discuss those met
 
 For historical reasons, Fiji (ImageJ) has two different structures to handle 3D data. At first, ImageJ used \emph{stacks} to support 0-3 dimensions. This was done to z-slices or time points. To be more flexible, \emph{hyperstacks} were introduced to support 0-5 dimensions. For compatibility reasons, both structures co-exist at the moment, but the distinction is disappearing with the hyperstack becoming the standard structure to represent multi-dimensional data. As you will see, hyperstacks are used when importing microscopy file formats. If a pixel \emph{p} defined by three spatial dimensions \emph{p(x,y,z)}, we call the pixel \emph{voxel} (volume element).
 
+\begin{taskbox}{Viewing a 3D Stack}
 
+\begin{enumerate}
+	\item Open the file flybrain-template.tif in /mod1-publishing/data. This is an 8-bit gray-scale z-stack, showing a standard template of a fly brain. You should see that there is a slider below the image to go through individual z-sections of the stack. 
+	\item If the image looks too bright or dark, adjust the brightness (\texttt{[Image > Adjust > Brightness/Contrast...]}).
+	\item Click on the start animation button left to the slider to start an automatic stepping through the sections (Fig. \ref{fig:stack_animation_button} similar to a video). Clicking on the button again, pauses the animation (button icon changes accordingly).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.3\textwidth]{mod1-publishing/figures/stack-animation-button.png}%
+		}
+		\medskip
+		\captionof{figure}{Start stack animation.}\label{fig:stack-animation-button}
+		\end{center}
+	\end{minipage}
+	
+	\item Using the stack toolbar (Fig. \ref{fig:stack-toolbar}), you can \texttt{[Start Animation]} and \texttt{[Stop Animation]} as well.
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.7\textwidth]{mod1-publishing/figures/stack-toolbar.png}%
+		}
+		\medskip
+		\captionof{figure}{Stacks toolbar.}\label{fig:stack-toolbar}
+		\end{center}
+	\end{minipage}
+	
+	\item Use the \texttt{[Animation Options]} from the stack toolbar to increase the animation speed to 20 fps (frames-per-second) and loop back and forth. The animation should look much smoother now (Fig. \ref{fig:animation-options-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/animation-options-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Stacks toolbar.}\label{fig:animation-options-dialog}
+		\end{center}
+	\end{minipage}
+	
+	SAVE AS AVI!!
+	
+\end{enumerate}
+
+\end{taskbox}
+
+It is possible that the image data you import has the dimensions mixed up. If the data is a stack, you can use \texttt{[Image > Properties]} to reorder channels, slices and frames. However, it is more flexible to convert the stack to a hyperstack and perform re-ordering on the hyperstack.
+
+\begin{taskbox}{Order of Dimensions}
+
+\begin{enumerate}
+	\item Open the file flybrain-template.tif in /mod1-publishing/data if it is not still open.
+	\item Use \texttt{[Image > Hyperstacks > Stack to Hyperstack...]} to convert the stack to a hyperstack. In our test image, the order, channels, slices and frames should be detected correctly. 
+	\item Now, you can easily re-order the dimensions of the hyperstack using \texttt{[Image > Hyperstacks > Re-order Hyperstacks...]}. Although this does not make any sense, change the z-dimension to a time dimension. As you can see, from the user perspective, this does not change anything at the moment.
+\end{enumerate}
+
+\end{taskbox}
+
+Fiji offers many ways to manipulate (hyper)stacks. You can concatenate, combine, interleave, insert or split stacks; convert images to stacks and back, remove and add slices, make substacks, create a montage or generate a stack from a montage. These functions can be found under \texttt{[Image > Stacks]} and especially \texttt{[Image > Stacks > Tools]}. 
+
+\begin{taskbox}{Manipulating Stacks -- Creating a Montage}
+A common way 3-dimensional data is presented (typically along time or z-axis) is the montage view.
+
+\begin{enumerate}
+	\item Open the file flybrain-template.tif in /mod1-publishing/data if it is not still open.
+	\item Use \texttt{[Image > Stacks > Make Montage...]}. In the dialog, set \texttt{[Columns]} and \texttt{[Rows]} to 5, \texttt{[First Slice]} to 100, \texttt{[Last Slice]} to 124, change the \texttt{[Border Width]} to 1 pixel and tick \texttt{[Label Slices]} (Fig. \ref{fig:make-montage-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/make_montage_dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Make Montage Dialog.}\label{fig:make-montage-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item You can see how easy it is to create a custom montage view, play with the different options, e.g. \texttt{[Increment]}.
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{taskbox}{Manipulating Stacks -- Creating an Insert}
+We now want to do something more complicated: let's say we want to show a detail of the flybrain, e.g. the central complex or the optic lobes. To help viewers, we want to put a little version of the complete brain in the corner of our 3D image as an overview. How would you proceed?
+
+\begin{enumerate}
+	\item Open the file flybrain-template.tif in /mod1-publishing/data if it is not still open.
+	\item Use the rectangle tool to select an interesting part of the brain that you want to highlight. Duplicate the complete stack using \texttt{[Image > Duplicate]}, this will only duplicate the part you selected. 
+	\item Use \texttt{[Image > Adjust > Size...]} to create an image with 1024 pixel width and no interpolation.
+	\item Go back to our original image of the fly brain and use \texttt{[Image > Scale...]} to reduce the image size to 20\% (x, y) with bilinear interpolation.
+	\item The insert is created with \texttt{[Image > Stacks > Tools > Insert...]}. Make sure you use the detailed view of brain as \texttt{[Destination]} and the overview as \texttt{[Source]}. \texttt{[X-Location]} and \texttt{[Y-Location]} can remain 0 (Fig. \ref{fig:stack-inserter-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/stack-inserter-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Stack Inserter Dialog.}\label{fig:stack-inserter-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item Again, a very easy procedure -- explore further stack operations on your own.
+\end{enumerate}
+
+\end{taskbox}
+
+\subsection{Color images}
+
+So far, we only analyzed images with one color channel (grayscale), i.e. at each spatial position, we only had one pixel with one value. In microscopy, we often encounter multi-channel images where each channel corresponds to one modality. One channel for each fluorophore intensity, a channel for a DIC image or even a channel that does not represent brightness but for example fluorophore lifetime. Outside microscopy, we also usually encounter color images, these are often RGB images that consist of red, green and blue 8-bit channels. Again, publisher demands on the color usage varies, sometimes they demand that the RGB color space you usually work with on your computer is converted to the CMYK color space that is typically used in print. Luckily, as the primary source for distributing and viewing a publication are various digital devices, conversion demands become less common.
+
+\minisec{Color models}
+Outside microscopy, two colorspaces are very common:
+\begin{enumerate}
+	\item RGB (Red Green Blue)\\A single RGB image has three, fixed color channels: red, green and blue. Each of those have a fixed bit-depth of 8-bit, resulting in a single RGB image with 24-bit. These colors have been chosen as computer screens generate colors by mixing red, green and blue light and therefore, RGB images directly determine how much of each color to use but are device dependent (actually, RGB is based on human color perception).
+	\item CMYK (Cyan Magenta Yellow Key)\\A single CMYK image is based on four colors: cyan, magenta, yellow and black. The color model is primarily used in printing, but is device-dependent as well. When you want to publish a manuscript, it is very likely that you will be asked to convert your figures to the CMYK color space. This can be done with Fiji using existing Plugins, but it might be better to perform the conversion for the total final figure when all other editing has been finished. As the online versions of publications have become much more important than the actual prints, efforts to produce color-true conversions for printing become much less important.
+\end{enumerate}
+
+\begin{taskbox}{RGB Images}
+
+\begin{enumerate}
+	\item Open the file muscle-cell.tif in /mod1-publishing/data\footnote{This image was taken from a publication in Nature Cell Biology 5, 598(2003); Cell of the Month: The vascular smooth muscle cell cytoskeleton; Mario Gimona; DOI:10.1038.ncb0703-598}. This is a RGB image of a mouse smooth muscle cell with fluorescent labels of the cytoskeleton. Use \texttt{[Image > Show Info...]} for details about this image.
+	\item Use \texttt{[Image > Adjust > Brightness/Contrast]} and change the slider values. Observe that this operation affects all colors simultaneously. Reset the changes.
+	\item We now split the red, green and blue channels of the RGB image with \texttt{[Image > Color > Split Channels]}. Three windows appear, each showing the respective color content. 
+	\item Let's combine these channels again with \texttt{[Image > Color > Merge Channels]}. The merge-function gives us many options to create a merged image (Fig. \ref{fig:merge_channels_dialog}). Do not set any options and use the same color channels.
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{/mod1-publishing/figures/merge_channels_dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Merge Channels Dialog.}\label{fig:merge-channels-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item Now split again and merge back, but with option \texttt{[Create composite]} ticked. This creates a slider below the image, indicating that we created a three-layered stack, one layer for each color.  
+	\item The composite image allows us to work on each channel separately. Perform \texttt{[Image > Color > Channels Tool...]}. In this dialog, you can select individual channels in composite mode or view individual channels in Color/Grayscale mode (Fig. \ref{fig:channels-tool-dialog}). Try out the different settings.
+	
+		\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{figures/chapter1/channels-tool-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Channels Tool Dialog.}\label{fig:channels-tool-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item Try to perform already know operations on just one color channel, e.g. Adjust the brightness (you can see that the little histogram changes color when you change the channel!).
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{taskbox}{Convert RGB to CMYK -- Extending Fiji with Plugins}
+Although Fiji has a great core functionality included, the power of this tool can only be appreciated with the many existing macros and plugins. While some plugins are already included in the Fiji distribution, you most likely will encounter some function you need that is not included -- and if this is a common task it is very likely that someone already solved this problem. 
+
+\begin{enumerate}
+	\item Convert the composite image back to a RGB image with \texttt{[Image > Color > Stack to RGB]}.
+	\item We now want to convert the RGB image into a CMYK image for publication. However, Fiji is not able to do so and we have to extend the functionality. A quick search ('imagej convert to cmyk') shows that, fortunately, Stephan Saalfeld and Wayne Rasband wrote a plugin for this (two names you might encounter more often).
+	\item You can find the file RGB\_to\_CMYK.class in the folder mod1-publishing/data/. Installing this plugin is very easy, just drag and drop the file onto the main Fiji window. You are asked to save the file in the plugins directory of Fiji. 
+	\item Convert the image to CMYK with \texttt{[Plugins > RGB to CMYK]}.
+\end{enumerate}
+
+\end{taskbox}
+
+\minisec{Lookup Tables}
+For a computer, an image is a matrix with the same dimensions as the image and the range of possible values at each matrix position are determined by the bit-depth. A \emph{lookup table (LUT)} maps these values to a color/brightness that is displayed on the screen. Often, the LUT is simply called \emph{colormap}. The default LUT is gray-scale that, in an 8-bit image, assigns black to zero and white to 255. Intermediate values are represented as gray-levels and the same idea applies to any bit-depth.
+The advantage using a LUT is obvious; we can create arbitrary LUTs with any coloring we want. These colored LUTs are called 'pseudo-color'. These LUTs are typically used to indicate fluorophore emission wavelengths but are sometimes changed to emphasize certain aspects of the data.
+
+Figure \ref{fig:lookup_tables} shows the LUTs available in Fiji, the figure was created by the command \texttt{[Image > Color > Display LUTs]}. Very common LUTs are \emph{grayscale}, \emph{spectrum}, \emph{fire} and \emph{physics}.
