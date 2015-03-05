@@ -149,7 +149,7 @@ We already introduced the term bit-depth that describes the range of values that
 
 A \emph{bit} is the elementary unit of binary numbers and its possible values are 0 and 1. Electronic devices code and store information with binary numbers because binary states (0 and 1) can easily be implemented in electronics\footnote{While this statement is true, it leaves out any details. However, there are plenty of resources on the web if you are really interested why and how bits are used.}. If you have two bits, you can represent 4 different states (00, 01, 10, 11). In general, if you have \textbf{n} bits, you can represent \textbf{2\textsuperscript{n}} different states. Therefore, 8 bits allow you to represent 256 (2\textsuperscript{8}) different brightness values and 16 bits already 65536 (2\textsuperscript{16}) different values. The higher the bit-depth of our image, the more gray-levels can be represented between black (0) and white (Maximum value). One \emph{byte} consists of 8 bits (historic and convenience reasons). One kilobyte is a multiple of a byte, either 1000 bytes or 1024 bytes; this can be confusing and usually depends on the context. The same is true for further multiples, such as mega-, giga-, tera-, and petabytes.
 
-Similar to choosing an appropriate pixel size (see section \ref{sec:mod1-samplingrate}-samplingrate}), we also have to make choices regarding the pixel intensity values during acquisition:
+Similar to choosing an appropriate pixel size (see section \ref{sec:mod1-samplingrate}), we also have to make choices regarding the pixel intensity values during acquisition:
 \begin{itemize}
 	\item \emph{Bit-depth:} During image acquisition, we round the brightness values found in our samples into a certain number of levels that our chosen bit-depth can represent. For example, if we have 300 distinct brightness levels in our sample and we choose an 8-bit bit-depth, we cannot represent all 300 values (we only have 256 levels!). In this case, the 300 distinct values are rounded to the nearest level that can be represented. Pixels that have different intensities in our sample get rounded to the same values and the differences are lost. In practice, we do not worry about rounding errors during image acquisition -- we usually only have to make the choice between a low bit-depth (8-bit) and a higher bit-depth (12/16-bit). This is discussed in section \ref{sec:bitdepth-choice}. However, rounding errors can present problems during image processing. This is discussed in later chapters.
 	\item \emph{Data saturation / clipping: } When you take images on a microscope, you usually set the laser output power, detector gain and detector offset for every image. The reason is that whatever bit-depth we chose, we want the brightest pixels just around the maximum value that can be represented by our bit-depth range and the darkest pixels just around zero. If we use the wrong settings and pixels are saturated/clipped, we loose information about the brightest and darkest parts of our sample. This can prevent further analysis of our data! Clipping can also occur during image processing as you will see in a few minutes.
@@ -299,7 +299,7 @@ A common way 3-dimensional data is presented (typically along time or z-axis) is
 	\begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/make_montage_dialog.png}%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/make-montage-dialog.png}%
 		}
 		\medskip
 		\captionof{figure}{Make Montage Dialog.}\label{fig:make-montage-dialog}
@@ -338,7 +338,7 @@ We now want to do something more complicated: let's say we want to show a detail
 
 \subsection{Color images}
 
-So far, we only analyzed images with one color channel (grayscale), i.e. at each spatial position, we only had one pixel with one value. In microscopy, we often encounter multi-channel images where each channel corresponds to one modality. One channel for each fluorophore intensity, a channel for a DIC image or even a channel that does not represent brightness but for example fluorophore lifetime. Outside microscopy, we also usually encounter color images, these are often RGB images that consist of red, green and blue 8-bit channels. Again, publisher demands on the color usage varies, sometimes they demand that the RGB color space you usually work with on your computer is converted to the CMYK color space that is typically used in print. Luckily, as the primary source for distributing and viewing a publication are various digital devices, conversion demands become less common.
+So far, we only analyzed images with one color channel (grayscale), i.e. at each spatial position, we only had one pixel with one value. In microscopy, we often encounter multi-channel images where each channel corresponds to one modality. One channel for each fluorophore intensity, a channel for a DIC image or even a channel that does not represent brightness but for example fluorophore lifetime. Outside microscopy, we also usually encounter color images, these are often RGB images that consist of red, green and blue 8-bit channels. Again, publisher demands on the color usage varies, sometimes they demand that the RGB color space you usually work with on your computer is converted to the CMYK color space that is typically used in print. Luckily, as the primary source for distributing and viewing a publication are various digital devices, conversion demands become less common. 
 
 \minisec{Color models}
 Outside microscopy, two colorspaces are very common:
@@ -358,7 +358,7 @@ Outside microscopy, two colorspaces are very common:
 	\begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.4\textwidth]{/mod1-publishing/figures/merge_channels_dialog.png}%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/merge-channels-dialog.png}%
 		}
 		\medskip
 		\captionof{figure}{Merge Channels Dialog.}\label{fig:merge-channels-dialog}
@@ -371,7 +371,7 @@ Outside microscopy, two colorspaces are very common:
 		\begin{minipage}[t]{\linewidth}
 		\begin{center}
 		\adjustbox{valign=t}{%
-			\includegraphics[width=0.4\textwidth]{figures/chapter1/channels-tool-dialog.png}%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/channels-tool-dialog.png}%
 		}
 		\medskip
 		\captionof{figure}{Channels Tool Dialog.}\label{fig:channels-tool-dialog}
@@ -399,4 +399,324 @@ Although Fiji has a great core functionality included, the power of this tool ca
 For a computer, an image is a matrix with the same dimensions as the image and the range of possible values at each matrix position are determined by the bit-depth. A \emph{lookup table (LUT)} maps these values to a color/brightness that is displayed on the screen. Often, the LUT is simply called \emph{colormap}. The default LUT is gray-scale that, in an 8-bit image, assigns black to zero and white to 255. Intermediate values are represented as gray-levels and the same idea applies to any bit-depth.
 The advantage using a LUT is obvious; we can create arbitrary LUTs with any coloring we want. These colored LUTs are called 'pseudo-color'. These LUTs are typically used to indicate fluorophore emission wavelengths but are sometimes changed to emphasize certain aspects of the data.
 
-Figure \ref{fig:lookup_tables} shows the LUTs available in Fiji, the figure was created by the command \texttt{[Image > Color > Display LUTs]}. Very common LUTs are \emph{grayscale}, \emph{spectrum}, \emph{fire} and \emph{physics}.
+Figure \ref{fig:lookup-tables} shows the LUTs available in Fiji, the figure was created by the command \texttt{[Image > Color > Display LUTs]}. Very common LUTs are \emph{grayscale}, \emph{spectrum}, \emph{fire} and \emph{physics}.
+
+\begin{taskbox}{Exploring Lookup Tables}
+
+\begin{enumerate}
+	\item Open the image beads.tif in /mod1-publishing/data. You can look at the LUT of the current image with \texttt{[Image > Color > Show LUT]} which is the standard linear grayscale LUT you have already seen.
+	\item Change the LUT using \texttt{[Image > Color > Edit LUT...]}. Click on the top-left dark value and change the color from black to blue,  select the white entry from the bottom right and change the color to red (Fig. \ref{fig:lut-editor}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/lut-editor.png}%
+		}
+		\medskip
+		\captionof{figure}{LUT Editor.}\label{fig:lut-editor}
+		\end{center}
+	\end{minipage}
+	
+	\item Look at the image. Does it look familiar? This is the HiLo LUT that is often used in microscopy to optimize parameters for acquisition (emitted light, gain, offset). You can obtain the same image by selecting the HiLo LUT in Fiji (Fig. \ref{fig:lut-tool}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/lut-tool.png}%
+		}
+		\medskip
+		\captionof{figure}{LUT Tool.}\label{fig:lut-tool}
+		\end{center}
+	\end{minipage}
+	
+	\item Close the image and open the file cell-colony.tif in /mod1-publishing/data. Change the LUT to Spectrum using \texttt{[Image > Lookup Tables > Spectrum]}.
+	\item Display the current LUT of the image. Try out different available LUTs and display their profile.
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{figure}[!ht]
+	\centering
+		\includegraphics[width=0.80\textwidth]{mod1-publishing/figures/lookup-tables.png}
+	\caption{Lookup Tables in Fiji}
+	\label{fig:lookup-tables}
+\end{figure}
+
+\minisec{A short note about colors in publications}
+There is plenty of literature around discussing the best colormaps and general rules one should apply when using colors in scientific publications. We do not want to enter this, sometimes heated, debate, as color choice in microscopy usually comes naturally based on the wavelengths. Nevertheless, we want you to get a feeling why this debate is going on and provide two examples: \emph{Color Bias} and \emph{Color Blindness}. Color bias refers to the problem that poor color choices can introduce a biased view of our data. For example, when we change the grayscale LUT to a spectrum LUT, relative changes of intensity can be obscured. Color blindness addresses the issue that microscopy images, especially illustrating colocalization, are often presented with red and green (all following information on color blindness is taken from \cite{wong2011}). However, a substantial number of people are affected by various forms of color blindness (about 8\% of male Europeans). Therefore, it is very likely that you will have reviewers for your manuscripts or audience in your talk that are color blind. One option to adjust your images is simply to replace the red with magenta.
+
+\begin{taskbox}{Effects of LUT Changes}
+
+\begin{enumerate}
+	\item Open the image muscle-cell.tif in /mod1-publishing/data. 
+	\item Simulate color-blindness with \texttt{[Image > Color > Simulate Color Blindness]}. This function only works on an RGB image. 
+	\item Use \texttt{[Image > Color > Replace Red with Magenta]} to exchange colors and then simulate color-blindness again. Color differences are much more obvious in the second image.
+	\item go back to the original image of the muscle and split the channels.
+	\item Duplicate the window containing the blue channel information.
+	\item Change the LUT to spectrum and discuss the differences between the gray and spectrum LUTs.
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{taskbox}{Calibration Bars}
+A calibration bar is typically added to a figure when intensity comparisons are made. A calibration bar indicates which color corresponds to which brightness. This is especially important when you use LUTs with more than one color or when you use a single color LUT where the change in intensity is not linear ('gamma').
+
+\begin{enumerate}
+	\item Open the image fibroblast-sim.tif in /mod1-publishing/data. 
+	\item Adjust Brightness/Contrast and select a LUT you like.
+	\item Add a calibration bar with [Analyze > Tools > Calibration Bar...]. In the dialog, choose a location, fill color, label color, number of labels, asf. (Fig. \ref{fig:calibration-bar-dialog}). Note that this calibration bar shows the brightness settings you just applied and that you cannot change those now.	
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/calibration-bar-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Calibration Bar Dialog.}\label{fig:calibration-bar-dialog}
+		\end{center}
+	\end{minipage}
+	
+\end{enumerate}
+
+\end{taskbox}
+
+\subsection{4D/5D stacks}
+It is common that the data you acquire on microscopes has more than 3 dimensions. In this section, we will first discuss how you work with these data before we will discuss the problem of presenting this data in a figure.
+
+With the hyperstack data format, representation of 4D and 5D data is very similar. Basically, sliders are added to the image window. However, you have to keep the order of dimensions in mind. Common dimension order is XYCZT, however this order might be different when you import data -- doublecheck when importing!
+
+\begin{taskbox}{Working with 5D Data}
+To illustrate working with 5D data, we will import a sequence of files that are labeled with \_t000\_z000\_c000 and increasing numbering. The sequence of files has been generated from the standard Fiji sample Mitosis \texttt{[File > Open Samples > Mitosis (26 MB, 5D stack)]}. This data shows Drosophila S2 cell expressing GFP-Aurora B and mCherry-tubulin fusion protein undergoing mitosis (Courtesy of Eric Griffis).
+
+\begin{enumerate}
+	\item Go to \texttt{[Plugins > Bio-Formats > Bio-Formats Importer]} and select the first image in the folder /mod1-publishing/data/mitosis.
+	\item The Bio-Formats import options dialog shows up, make sure to select [Group files with similar names].
+	\item In the dialog, you can choose how to stitch the files (Fig. \ref{fig:bioformats-file-stitching}). We select Pattern. This parses the file based on: mitosis\_t0<01-51>\_z00<1-5>\_c00<1-2>.tif. <> denote the range of the import, e.g. we could only select one channel, or any other substack.
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.8\textwidth]{mod1-publishing/figures/bioformats-file-stitching.png}%
+		}
+		\medskip
+		\captionof{figure}{Bio-Formats File Stitching Dialog.}\label{fig:bioformats-file-stitching}
+		\end{center}
+	\end{minipage}
+	
+	\item The imported image shows three sliders: channel (2), z-position(5), time-stamps(51). Browse through the image, adjust Brightness if necessary. On thing to notice is that we lost information about the z-spacing, distance between time-stamps or channel colors.
+\end{enumerate}
+
+\end{taskbox}
+
+\subsection{Visualizing Multidimensional Data}
+You already worked with the most basic visualization of multidimensional data that only displays two dimensions at a time. In this view, you can browse through the dimensions by adjusting the sliders. Another view we already discussed is the image montage. Both of these visualizations are also valid options to present the data in a figure. In general, visualizing multi-dimensional data is non-trivial, as we are constrained by the physical limitations of our visual sense. In this section, we will look at some common visualization techniques for multi-dimensional microscopy data that are useful to highlight certain aspects of your data in a figure.
+
+\begin{taskbox}{Projection (Dimensionality reduction)}
+The first visualization we will explore is the projection. In a projection, data is summarized along one axis (dimension). A typical case is the maximum intensity projection of the z-axis of a 3D stack, resulting in a 2D image where each pixel represents the maximum value that was found in this \emph{(x,y)} position along \emph{z} - which is then used for the manuscript. In Fiji, you can choose between the minimum, average or maximum intensity projection and the sum, standard deviation or median of each pixel along \emph{z}. Remember that you can swap dimensions with \texttt{[Image > Hyperstack > Re-order Hyperstack]}.
+
+\begin{enumerate}
+	\item Open the image GMR-10A12-AE-01.tif from /mod1-publishing/data. This image shows the expression patterns of a GAL4 line, displayed on a standardized fly brain template (credits belong to the Rubin-lab, JFRC (Arnim Jennet) and The Virtual Fly Brain). Try to estimate the expression pattern (green) by going through \emph{z} using the slider. 
+	\item In this case, we might decide a z-projection is helpful to quickly determine whether the expression pattern is of interest. We can perform the projection with \texttt{[Image > Stacks > Z Project...]}, choosing Max Intensity (Fig. \ref{fig:z-projection-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/z-projection-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Z Projection Dialog.}\label{fig:z-projection-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item Explore various projections on the stack created from the file sequence in mod1-publishing/data/mitosis/.
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{taskbox}{Orthogonal View}
+Another very common visualization is the orthogonal view. In this view, two additional windows are created that are linked to the current slider position of the 2D view. These windows show the XZ and YZ position. This visualization can be useful if you want to present the intensity profiles in 3D data while presenting overview images for the orientation of the reader at the same time.
+
+\begin{enumerate}
+	\item Open the stack GMR-10A12-AE-01.tif from mod1-publishing/data/ if it is not already open. Show the orthogonal view with \texttt{[Image > Stacks > Orthogonal Views]}. Try scrolling through the axes to get a feeling for this view.
+\end{enumerate}
+
+\end{taskbox}
+
+\newpage
+\begin{taskbox}{Color Coding}
+One option to add a third dimension on a 2-dimensional plot is to somehow code the information; e.g. using different colors for z-depth or time. This can be useful when the data is structured along on axis, e.g. different layers of cells within a tissue, axons growing into other tissue parts or vesicles moving around over time.
+
+\begin{enumerate}
+	\item Open the image fake-tracks.tif from /mod1-publishing/data (another Fiji sample image). We use a fake file to better illustrate how the color coding works, but you can apply it to any 3D data for further testing. Perform [Image > Hyperstacks > Temporal-Color Code] and select a LUT of your choice (Fig. \ref{fig:color-code-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/color-code-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Temporal Color Code Dialog.}\label{fig:color-code-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item Compare the color-coded image with the original time-series.
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{taskbox}{Generating a Kymograph Plot}
+A Kymograph is an visualization to present a dynamic process in a single image where movements along a line are plotted for all time-frames in a stack (\emph{x-t} plot). Therefore, it is also a way to deruce dimensionality. They are common to show cellular components moving along a some path (e.g. mitochondria moving along an axon or cells migrating in reference to a body axis during development).
+
+\begin{enumerate}
+	\item Open the stack axon-mitos.tif from /mod1-publishing/data (Image by Arun Akondadi, Rugarli Lab, University of Cologne). Adjust Brightness. This image shows mitochondria moving along an axon.
+	\item This image has a problem: the axon was not stained itself, but we can hopefully reconstruct the axon path by the positions of the moving mitochondria. For this, perform a maximum projection over time.
+	\item The maximum-intensity image helps a lot to estimate the axon position in the image. Right-click on the [Line-Tool] to change the Straight Line to a Segmented Line (Fig. \ref{fig:segmented-line-selection}). Use the segmented line to trace the axon path. A double-click ends the line.	
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.6\textwidth]{mod1-publishing/figures/segmented-line-selection.png}%
+		}
+		\medskip
+		\captionof{figure}{Segmented Line Tool.}\label{fig:segmented-line-selection}
+		\end{center}
+	\end{minipage}
+	
+	\item Go to the original stack and do \texttt{[Edit > Selection > Restore Selection]}. This restores the line we just selected on the maximum projection on the stack.
+	\item Use \texttt{[Image > Stack > Reslice]} to generate the Kymograph. For display reasons, you can also invert the image with \texttt{[Edit > Invert]} and Adjust the Brightness.
+	\item If the line was placed correctly, you should see something similar to Fig. \ref{fig:kymograph}. The kymograph helps to distinguish stationary mitochondria and we can sometimes even distinguish anterograde from retrograde movement (in reference to soma).	
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.6\textwidth]{mod1-publishing/figures/kymograph.png}%
+		}
+		\medskip
+		\captionof{figure}{Example Kymograph.}\label{fig:kymograph}
+		\end{center}
+	\end{minipage}
+	
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{taskbox}{3D View}
+Instead of trying to visualize our data in 2 dimensions, we can also visualize in 3D using the 3D viewer in Fiji. For visualizations in 3D, several display options are common: Volume, Orthoslice, and Surface. While this choice is obviously not available for printed figures, online publishing of supplementary videos can be a good option to present your data.
+
+\begin{enumerate}
+	\item Open the stack GMR-10A12-AE-01.tif from /mod1-publishing/data if it is not already open. Select the 3D viewer with [Plugins > 3D Viewer]. In the options dialog (Fig. \ref{fig:3D-viewer-dialog}), select the image and display as a volume.	
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.3\textwidth]{mod1-publishing/figures/3D-viewer-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{3D Viewer Dialog.}\label{fig:3D-viewer-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item Depending on your hardware, this might take a while to display. Try to navigate the 3D view with your mouse. 
+	\item Let us try to generate a movie that you can save as an avi file. Use the 3D viewer menu to create a simple 360 degree rotation with \texttt{[View > Record 360 degree rotation]}. This generate a stack that you can now save as a movie using \texttt{[File > Save As > AVI]}. In this dialog, you can set the compression as well as the frame rate (how fast the movie is displayed). For our purposes, we set the compression to uncompressed and the Frame Rate to 15 fps (frames-per-second). Movie generation for journals can also be a tricky thing as they often impose strict size limits and requires specific formats. You often need to adjust the movie size as well as the compression algorithm to adhere to these requirements and the choice of both can be complicated. However, you can usually accept some compression artefacts as movies are often not considered raw data but more of a nice additional visualization. Still, make sure that you adhere to scientific principles and tell specifically how you treated your data to generate the movie.
+	\item Further instructions on the 3D viewer can be found at: http://3dviewer.neurofly.de/; the website of the developers (as of 28.10.2014).
+\end{enumerate}
+
+\end{taskbox}
+
+\section{File Formats}
+File formats are an important, but dry topic. Every time you share data with colleagues or during the manuscript submission process, you have to work with various formats. This section discusses some basics of formats, focusing on formats suitable for microscopy data (and more general image file formats).
+
+An image file consists of two main parts:
+\begin{enumerate}
+	\item \emph{Header} -- The header contains additional information about your image, such as image type, dimensions, bit-depth, pixel size, microscope settings and general file information. The data in the header is often called \emph{metadata}. Parts of the metadata are as important as the pixel data as they are necessary to interpret the image data (e.g. pixel size, bit-depth). 
+	\item \emph{Content} -- The content of an image file consists of the actual pixel data, the matrix with numerical values. 
+\end{enumerate}
+
+The way the header and the pixel data are organized is determined by the file format. Many general image file formats exists, common are JPEG, PNG, TIFF or GIF. These formats are read by many different software tools across platforms and allow quick previews in all major operating systems. They are therefore very suitable to view and share image data. However, there are some problems with these file formats when we want to use them to store our scientific image data:
+\begin{itemize}
+	\item The format \emph{metadata} might not include essential information about our microscopy data (e.g. pixel size).
+	\item \emph{Bit-depth} choice can be limited (e.g. GIF only allows 8-bit).
+	\item \emph{Multi-dimensional information} might not be supported and extra-dimensions lost when converted (limits apply to all standard formats).
+	\item The format uses \emph{lossy compression} to shrink file size (e.g. JPEG).
+	\item Sometimes, limits on the \emph{maximum number of pixels} in a plane can prevent use for microscopy data.
+\end{itemize}
+
+\minisec{Compression}
+Compression is used to reduce image file sizes. In general, compression methods can be divided into two types: \emph{loss-less} and \emph{lossy} compression. As the names indicate, the original pixel data cannot be reconstructed if lossy compression is employed (information is lost) and the original data can be reconstructed in lossless compression. A typical example of lossless compression is used in PNG. In this format, compression is achieved by shrinking redundant parts. JPEG and GIF are usually lossy formats. In addition to shrinking redundant parts, these formats also interpolate parts of the image to decrease file size even more.  
+
+\begin{quotation}
+	Lossy compression should be avoided to maintain scientific integrity!\\(Unless you know exactly what you are doing)
+\end{quotation}
+
+Limitations of general image file formats led many microscope and image processing software manufacturers to develop their own image file formats (LIF, SCN -- Leica, LSM, ZVI -- Zeiss, ND2 -- Nikon, ...). These formats store all important metadata information and the original pixel data (only loss-less compression used). However, the drawback is that you typically need proprietary software to view these files and access all metadata and that another software you want to use for analysis or display might not be able to read the original data file.
+
+\begin{quotation}
+	The originally acquired files are the most trustworthy -- this is your original, raw data\\You should always keep these files with appropriate backup solutions\footnote{It is also very likely that the funding agency supporting your research has rules how you treat your original data!}.
+\end{quotation}
+
+As you can see, this is a mess for researchers. On the one hand, you want to maintain scientific integrity and adhere to standards concerning your data, but on the other hand, you want to share your data and have easy access for further processing.
+
+Fortunately, the LOCI Bioformats plugin\footnote{http://www.openmicroscopy.org/site/support/bio-formats5/ (as of 24/10/2014)} can import most proprietary file formats and extract most of their metadata in Fiji. There is also significant effort by the Open Microscopy Environment (OME) to provide a standardized file format OME-TIFF that includes rich metadata descriptions suitable for microscopy. This is an ongoing process and if you use this format to store and share data, you have to make sure that all important metadata is actually included.
+
+Journals usually accept common image file formats (if compressed with loss-less compression). I would recommend using a vector graphics program for final figure preparation (think about text/line art) with microscopy images embedded (that have been prepared by e.g. Fiji).
+
+\begin{taskbox}{Using Bioformats}
+Let's import a microscope specific file format into Fiji.
+
+\begin{enumerate}
+	\item Open the image sted-confocal.lif in /mod1-publishing/data by drag/drop or with \texttt{[Plugins > Bio-Formats > Bio-Formats Importer]}.  
+	\item In the next dialog, you can select various import options (Fig. \ref{fig:bioformats-import-dialog}). Make sure that you load the data into a Hyperstack and tick the Display metadata option.
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.8\textwidth]{mod1-publishing/figures/bioformats-import-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Bioformats Import Dialog.}\label{fig:bioformats-import-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item The next window allows you to select a series. Several microscope image formats are actually libraries of files. In this case, you should see three different files. Open one of the series.
+	\item Two windows are opened. One showing the image, the other showing the metadata information. Scroll through the information and find the Dimension Length, Number of Elements and Unit. Use these values to calculate the pixel size.
+\end{enumerate}
+
+\end{taskbox}
+
+\begin{taskbox}{Scale Bars}
+Let's explore one final thing you usually have to include in your microscopy data: a scale bar that indicates the size of each pixel.
+
+\begin{enumerate}
+	\item Open the image sted-confocal.lif in /mod1-publishing/data by drag/drop or with \texttt{[Plugins > Bio-Formats > Bio-Formats Importer]}.  
+	\item We now want to add a scale bar to our image. In this case, Fiji already knows the pixel size - let us check whether our previous calculations were correct. Go to \texttt{[Analyze > Set Scale...]}. This dialog should show you how many pixels are in one micrometer (Fig. \ref{fig:set-scale-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/set-scale-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Set Scale Dialog.}\label{fig:set-scale-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item In case you have an image where information about the scale is visible in the image itself, you can then measure the length with a line and include this information in the dialog. Clicking on Global helps if you take one image of a micro-scale and want to use this information in other images you took with the same settings (e.g. on a small Lab-Microscope).
+	\item Let's add a scale bar now. Use [Analyze > Tools > Scale Bar]. Similar to the calibration bar, the dialog lets you adjust various visual parameters (Fig. \ref{fig:scale-bar-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1-publishing/figures/scale-bar-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Scalebar Dialog.}\label{fig:scale-bar-dialog}
+		\end{center}
+	\end{minipage}
+	
+\end{enumerate}
+
+\end{taskbox}
+
+\section{Figure publishing plugins for Fiji}
+If you want to generate your figures completely in Fiji, there are great (published) plugins available that help you with this task (http://fiji.sc/2013-11-04\_-\_Plugins\_for\_making\_scientific\_Figures. as of 25/02/2015). The FigureJ plugin lets you specify a figure canvas on which you can place various images with labels and scale bars (http://imagejdocu.tudor.lu/doku.php?id=plugin:utilities:figurej:start, as of 25/02/2015).
+
