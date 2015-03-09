@@ -168,6 +168,30 @@ In addition, there is a 32-bit image format that allows you to display 2\textsup
 When you prepare your figures, bit-depth is usually not a big issue. However, you have to be careful when you export/import images using various file formats -- some common file formats only support 8-bit bit-depth and you have to make sure that you convert appropriately.
 
 \newpage
+\begin{taskbox}{Brightness Adjustments}
+\begin{enumerate}
+	\item Open the file fibroblast\_sim.tif in /data/chapter1. This is a 16-bit gray-scale image showing actin filaments in a cell. 
+	\item You should note that the image looks rather dark. Fortunately, Fiji has a way to adjust the brightness and contrast of an image without altering the original data. Go to \texttt{[Image > Adjust > Brightness/Contrast...]}, you should see a dialog as shown in figure \ref{fig:adjust-brightness-dialog}.
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.3\textwidth]{mod1/figures/adjust-brightness-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Brightness and Contrast Adjustment.}\label{fig:adjust-brightness-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item Click on \texttt{[Auto]}. The image gets brighter as the maximum brightness is now associated with a lower image intensity. This linear scale can be adjusted manually by changing the slider positions. \texttt{[Reset]} reverts to the original intensity scaling. 
+	\item Play with the sliders to set the image intensity scaling. 
+	\item Using \texttt{[Set]}, we can either enter precise minimum and maximum values or show a defined range (8-,10-,12-,15-,16-bit) and also propagate our selection to all other open images. Again, the original pixel values remain, we only change the display.
+\end{enumerate}
+
+\end{taskbox}
+
+
+\newpage
 \begin{taskbox}{Bit-Depth Conversion}
 \begin{enumerate}
 	\item Open the image beads.tif from mod1/data using \texttt{[File > Open]}. Duplicate the image with \texttt{[Image > Duplicate...]}. Choose the line selection tool and draw a line through one of the bright spheres in the image (Fig. \ref{fig:line-roi-example}).	
@@ -387,6 +411,7 @@ Outside microscopy, two colorspaces are very common:
 
 \end{taskbox}
 
+\newpage
 \begin{taskbox}{Convert RGB to CMYK -- Extending Fiji with Plugins}
 Although Fiji has a great core functionality included, the power of this tool can only be appreciated with the many existing macros and plugins. While some plugins are already included in the Fiji distribution, you most likely will encounter some function you need that is not included -- and if this is a common task it is very likely that someone already solved this problem. 
 
@@ -449,6 +474,7 @@ Figure \ref{fig:lookup-tables} shows the LUTs available in Fiji, the figure was 
 \minisec{A short note about colors in publications}
 There is plenty of literature around discussing the best colormaps and general rules one should apply when using colors in scientific publications. We do not want to enter this, sometimes heated, debate, as color choice in microscopy usually comes naturally based on the wavelengths. Nevertheless, we want you to get a feeling why this debate is going on and provide two examples: \emph{Color Bias} and \emph{Color Blindness}. Color bias refers to the problem that poor color choices can introduce a biased view of our data. For example, when we change the grayscale LUT to a spectrum LUT, relative changes of intensity can be obscured. Color blindness addresses the issue that microscopy images, especially illustrating colocalization, are often presented with red and green (all following information on color blindness is taken from \cite{wong2011}). However, a substantial number of people are affected by various forms of color blindness (about 8\% of male Europeans). Therefore, it is very likely that you will have reviewers for your manuscripts or audience in your talk that are color blind. One option to adjust your images is simply to replace the red with magenta.
 
+\newpage
 \begin{taskbox}{Effects of LUT Changes}
 
 \begin{enumerate}
@@ -462,6 +488,8 @@ There is plenty of literature around discussing the best colormaps and general r
 
 \end{taskbox}
 
+
+\newpage
 \begin{taskbox}{Calibration Bars}
 A calibration bar is typically added to a figure when intensity comparisons are made. A calibration bar indicates which color corresponds to which brightness. This is especially important when you use LUTs with more than one color or when you use a single color LUT where the change in intensity is not linear ('gamma').
 
@@ -484,7 +512,6 @@ A calibration bar is typically added to a figure when intensity comparisons are 
 
 \end{taskbox}
 
-\newpage
 \subsection{4D/5D stacks}
 It is common that the data you acquire on microscopes has more than 3 dimensions. In this section, we will first discuss how you work with these data before we will discuss the problem of presenting this data in a figure.
 

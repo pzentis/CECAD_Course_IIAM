@@ -1,0 +1,26 @@
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Rossner and Yamada(2004)]{rossner2004}
+M~Rossner and K~M Yamada.
+\newblock What's in the picture? the temptation of image manipulation.
+\newblock \emph{Journal of Cell Biology}, 166:\penalty0 11--15, 2004.
+
+\bibitem[{The Mac Developer Library}(2011)]{MacDev2011}
+{The Mac Developer Library}.
+\newblock Performing convolution operations.
+\newblock
+  https://developer.apple.com/library/mac/documentation/Performance/Conceptual/vImage/ConvolutionOperations/ConvolutionOperations.html,
+  2011.
+\newblock [Online; as of 19/11/2014].
+
+\bibitem[Wong(2011)]{wong2011}
+B~Wong.
+\newblock Points of view: Color blindness.
+\newblock \emph{Nature Methods}, 8:\penalty0 441, 2011.
+
+\end{thebibliography}
