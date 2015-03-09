@@ -198,7 +198,7 @@ A common task is the subtraction of the background levels of our images to make 
 \subsection{Doing math with two images}
 In the previous section, we operated with a single image and constant numeric values. Likewise, we can perform computations that involve two images. Assuming that both images have the same dimensions, we can perform calculations on each pair of pixels at the same position. For example, this type of operation can be used to subtract an image showing only (non-uniform) background from the image showing background + data or we can compare two images by obtaining their difference.
 
-begin{taskbox}{Background subtraction}
+\begin{taskbox}{Background subtraction}
 In this example, we are exploring a common method to subtract background information from a time-series. In the given example, we have moving bacteria that were imaged with phase contrast microscopy. The key idea for the background subtraction is that on each pixel, most of the time no bacteria is visible. We therefore create an average image and subtract this image from the original images to increase contrast of moving bacteria.
 
 \begin{enumerate}
