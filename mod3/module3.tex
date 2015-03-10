@@ -79,6 +79,7 @@ For better illustration, let us perform the convolution on a small example, we a
 
 Figure \ref{fig:convolution-demo} looks at a few steps of the convolution to illustrate how the resulting image is calculated.
 
+\newpage
 \begin{figure}[!ht]
 	\centering
 		\includegraphics[width=0.60\textwidth]{mod3/figures/convolution-demo.png}
@@ -272,6 +273,7 @@ For the median, maximum and minimum filters, pixels in the neighborhood are samp
 \]
  The sorted list would look like: $0,0,0,0,90,95,100,105,110$. The median filter would update the pixel value from 100 to 90. The mean filter would update to a value of 56. If this pixel is part of an edge, the median filter would be better to maintain this edge. The maximum and minimum filters use the same sorted list but update the pixel with either the highest or the lowest value.
 
+\newpage
 \begin{taskbox}{Median Filter}
 \begin{enumerate}
 	\item Open the image microtubuli.tif in /mod3/data. Before we do any further processing, we add some Salt-and-Pepper noise using \texttt{[Process > Noise > Salt and Pepper]}. This sets random pixels to the lowest or highest values.
@@ -498,13 +500,14 @@ A skeleton analysis can be very useful if you are interested in the branching of
 \subsection{Watershed transform}
 Watershed segmentation is used to separate touching objects, i.e. they appear as a single object in the binary image. The algorithm first calculates an Euclidean distance map (Fig. \ref{fig:distance-transform}), where the distance of each pixel to the nearest foreground pixel is calculated. The remaining black objects (peaks after the distance transform, centers of the original binary objects) are then dilated until the edge of the original object is found or the edge touches a region of another dilating object. This approach works best if the objects are 'round-ish' and have small overlap.
 
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
 		\includegraphics[width=0.60\textwidth]{mod3/figures/distance-transform.png}
 	\caption{Distance transform}
 	\label{fig:distance-transform}
 \end{figure}
 
+\newpage
 \begin{taskbox}{Watershed transform}
 \begin{enumerate}
 	\item Open the image bunch-of-nuclei.tif in /data/chapter4. Use the gauss-filter and thresholding to generate a binary image with the nuclei detected. Duplicate. 
