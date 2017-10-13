@@ -123,7 +123,7 @@ Fiji has an ROI manager to assist when you work with multiple ROIs. Open the ROI
 
 \section{Measurements}
 
-The easiest way to read pixel values is moving the mouse pointer over individual pixels and reading their intensity value in the main Fiji bar. The histogram allows us to get the distribution of pixel intensities. Fiji has the function \texttt{[Analyze > Measure]} to obtain statistical information about pixel values within a ROI. \texttt{[Analyze > Set Measurements...] }allows us to select the parameters we want to measure. For example, following parameters can be obtained (Fig. \ref{fig:set_measurements-dialog}):
+The easiest way to read pixel values is moving the mouse pointer over individual pixels and reading their intensity value in the main Fiji bar. The histogram allows us to get the distribution of pixel intensities. Fiji has the function \texttt{[Analyze > Measure]} to obtain statistical information about pixel values within a ROI. \texttt{[Analyze > Set Measurements...] }allows us to select the parameters we want to measure. For example, following parameters can be obtained (Fig. \ref{fig:set-measurements-dialog}):
 \begin{description}
 	\item[Area] Area of selection in square pixels. If the image is calibrated, Area is displayed in according units.
 	\item[Standard Deviation] Standard deviation of intensity values.
@@ -221,7 +221,7 @@ Before, we used the ROI Manager XOR function to obtain the cytoplasm ROI. We can
 	\item Duplicate just the green channel.
 	\item Select the Nucleus ROI and create a mask (look at the previous exercise if you forgot how to proceed). Duplicate the mask.
 	\item Now, select the Cell ROI and create another mask.
-	\item you should now have two image masks (black-and-white images, see fig. \ref{fig:image-masks}).	
+	\item You should now have two image masks (black-and-white images, see fig. \ref{fig:image-masks}).	
 	
 		\begin{minipage}[t]{\linewidth}
 		\begin{center}
@@ -308,5 +308,5 @@ Equalization converts pixel values so that the values are distributed evenly wit
 \subsection{Local Histogram Equalization}
 Histogram equalization could also be performed on a local basis. This becomes powerful, as more local details could be contrast enhanced. In Fiji, you can use local histogram equalization with \texttt{[Process > Enhance Local Contrast (CLAHE)]}.
 
-\section{Colocalization}
+
 

@@ -12,7 +12,7 @@ In the module 'Measuring Intensities', you explored how you can manually define 
 
 \section{Image preprocessing}
 
-We now generalize this concept of pixel operations by looking at an image as a discrete function. For a 2D image, $f(x,y)$ maps from $R^2$ to $R$, giving the intensity at position $(x,y)$. In this view, any pixel operation $o$ can be expressed as $g\left(x,y\right)=o\left(f\left(x,y\right)\right)$, where $g(x,y)$ is the modified image. The operations we already know are either simple arithmetic- or histogram-based methods. 
+We now generalize the concept of pixel operations by looking at an image as a discrete function. For a 2D image, $f(x,y)$ maps from $R^2$ to $R$, giving the intensity at position $(x,y)$. In this view, any pixel operation $o$ can be expressed as $g\left(x,y\right)=o\left(f\left(x,y\right)\right)$, where $g(x,y)$ is the modified image. The operations we already know are either simple arithmetic- or histogram-based methods. 
 
 Another type of very powerful operations is the \emph{image filter}. Often, image preprocessing involves the (sequential) application of various image filters. Image filters are local operations where the \emph{neighborhood} (surrounding pixels) of each pixel determines the new intensity value. The pixel neighborhood is also called the \emph{kernel}. These filters are mainly used to smooth the image (suppress high frequencies) or enhance edges (suppress low frequencies).
 
@@ -124,7 +124,7 @@ Let us compare the previous example with the operation performed in Fiji.
 
 \minisec{Convolution and Correlation}
 
-A convolution is a correlation with the kernel rotated by 180 degrees. This makes no difference if the filter is symmetric (e.g. Gaussian). The reflection of the kernel has a few important effects. One is that the convolution is associative ($f * g * h = f * (g * h)$) while the correlation is not; i.e. the associativity allows you to pre-convolve several filters into a single filter that gets applied to your image. The correlation describes the comparison between the kernel and the pixel neighborhood and is, for example, used in template matching as associativity is not important for this task. Also, the convolution is a multiplication in the frequency domain and it can be faster to perform the filtering in the frequency domain (depending on image and kernel size). 
+A correlation is a convolution with the kernel rotated by 180 degrees. This makes no difference if the filter is symmetric (e.g. Gaussian). The reflection of the kernel has a few important effects. One is that the convolution is associative ($f * g * h = f * (g * h)$) while the correlation is not; i.e. the associativity allows you to pre-convolve several filters into a single filter that gets applied to your image. The correlation describes the comparison between the kernel and the pixel neighborhood and is, for example, used in template matching as associativity is not important for this task. Also, the convolution is a multiplication in the frequency domain and it can be faster to perform the filtering in the frequency domain (depending on image and kernel size). 
 
 \begin{taskbox}{The point spread function (PSF)}
 
@@ -430,7 +430,12 @@ Let us have a look at one of the thresholding methods, \emph{ Otsu's method}. Th
 	\item In the next step, we want to identify the lysosomes (red). Try to threshold the appropriate channel with Otsu's method. Are the results good enough?
 	\item As you can see, the algorithm already works relatively well, but is not good enough for our purposes. Can you think of a reason why the method fails in some parts of the cells? 
 	\item After an analysis, we come to the conclusion that background signal is too high in parts of the cell. Therefore, we now first use a background subtraction (e.g. with a rolling ball radius of 10 pixels) before we threshold with Otsu's method. Do the results improve?
-	\item Finally,try to use the green channel to identify the cells' cytoplasm. Again, it seems that an image filter might improve the results. Try a gaussian filter with varying sigma values to improve the results. At the end, the result we obtain is not perfect but might be sufficient for our needs. You will see in section about binary images how we could still improve on this thresholding. 
+	\item Finally, try to use the green channel to identify the
+          cells' cytoplasm. Again, it seems that an image filter might
+          improve the results. Try a gaussian filter with varying
+          sigma values to improve the results. At the end, the result
+          we obtain is not perfect but might be sufficient for our
+          needs. You will see in the section about binary images how we could still improve on this thresholding. 
 	\end{enumerate}
 \end{taskbox}
 
@@ -510,14 +515,14 @@ Watershed segmentation is used to separate touching objects, i.e. they appear as
 \newpage
 \begin{taskbox}{Watershed transform}
 \begin{enumerate}
-	\item Open the image bunch-of-nuclei.tif in /data/chapter4. Use the gauss-filter and thresholding to generate a binary image with the nuclei detected. Duplicate. 
+	\item Open the image bunch-of-nuclei.tif in /mod3/data/. Use the gauss-filter and thresholding to generate a binary image with the nuclei detected. Duplicate. 
 	\item Use \texttt{[Process > Binary > Watershed]} on the binary image. Observe where the algorithm splits objects.
 	\end{enumerate}
 \end{taskbox}
 
 \section{Analyzing objects}
 
-Fiji has a very powerful method to obtain measurements from segmented objects which is called 'Analyze Particles' (Fig. \ref{fig:analyze-particles-dialog}). The windows allows you to select detected objects by size and by circularity, excluding objects at the edges of the image and produces several result outputs. It can add detected objects as individual ROIs to the ROI manager and perform calculations by performing the 'Measure' method on each detected object.
+Fiji has a very powerful method to obtain measurements from segmented objects which is called 'Analyze Particles' (Fig. \ref{fig:analyze-particles-dialog}). The window allows you to select detected objects by size and by circularity, excluding objects at the edges of the image and produces several result outputs. It can add detected objects as individual ROIs to the ROI manager and perform calculations by performing the 'Measure' method on each detected object.
 
 \begin{figure}[!ht]
 	\centering
