@@ -4,13 +4,7 @@ In this module, we will work through some necessary basics of image processing a
 
 Digital images are ubiquitous and nearly everybody is used to taking pictures with a digital camera or smart-phone and also storing and processing these images. The same way that digital imaging has replaced analog cameras in our daily lives, light microscopes have transformed to digital imaging systems\footnote{In this course, we do not discuss the technologies that actually generate digital images in microscopes. If you want to learn about various microscopy techniques, we recommend looking at the online iBiology Microscopy Course (www.ibiology.org/ibioeducation/taking-courses/ibiology-microscopy-course.html, 25-02-2015)}. Even the most simple light microscopes are usually equipped with a digital camera and a screen to display, take and store images - also allowing quick and simple image processing tasks without the need for additional software (e.g. brightness \& contrast adjustments, white balancing). More complex light microscopes, such as confocal laser scanning microscopes (CLSM), already require sophisticated software interfaces to set up imaging parameters and visualize the results. Finally, there are also types of microscopes that depend on digital image processing (e.g. stochastic optical reconstruction microscope, STORM or single plane illumination microscopy, SPIM).
 
-As a result of these advancements, modern digital microscopy offers
-more than just 'pretty pictures' - there are many imaging techniques
-that rely on computational analysis as well as methods for image
-enhancement, restoration and quantitative analysis. Modern microscopy
-cannot be understood without the basics of digital images and digital
-image processing. This knowledge is not only essential to make full
-use of the capabilities, but also to understand limitations -- a very important prerequisite to maintain scientific validity.
+As a result of these advancements, modern digital microscopy offers more than just 'pretty pictures' - there are many imaging techniques that rely on computational analysis as well as methods for image enhancement, restoration and quantitative analysis. Modern microscopy cannot be understood without the basics of digital images and digital image processing. This knowledge is not only essential to make full use of the capabilities, but also to understand limitations -- a very important prerequisite to maintain scientific validity.
 
 \minisec{Raster and vector images}
 Typically, most pictures you work with (scanned documents, photos taken with a digital camera, pictures found on the web) are raster graphics (see Fig. \ref{fig:bitmap-graphics}). This means that these images are made up of a grid of \emph{pixels} (picture elements). Each pixel has a value that represents some property of the image (usually brightness). The range of this value is called \emph{bit-depth} and determines possible values at each pixel. Sometimes, the term \emph{bitmap image} is used for a raster image. For example, the image shown in figure \ref{fig:bitmap-graphics} illustrates a raster image with 420 x 420 pixels and a bit-depth of 1 byte. Therefore, we have a total of 176400 pixels, multiplied with 1 byte taking up a total of 172 kilobytes disc space. As you can see, the number of pixels and the bit-depth affect the required disc space. Additionally, we cannot easily change the size of the image; enlarging causes the image to look 'pixelated' or we have to use interpolation techniques to estimate the value of added pixels. Decreasing the number of pixels in the image might result in a loss of image features. There are plenty of commercial and open-source programs to work with raster images; representative software packages are Adobe Photoshop (Adobe Inc., San Jose) and GIMP (GNU Image Manipulation Program, The GIMP team, http://gimp.org).
@@ -18,7 +12,7 @@ Typically, most pictures you work with (scanned documents, photos taken with a d
 \begin{figure}[!ht]
 	\centering
 		\includegraphics[width=0.60\textwidth]{mod1/figures/bitmap-graphics.png}
-	\caption{Fluorescent labeled mitochondria in HeLa cells. This image shows that raster graphics are made up of pixels that become clearly visible when zoomed.}
+	\caption{Fluorescent labeled mitochondria in HeLa cells. THis image shows that raster graphics are made up of pixels that become clearly visible when zoomed.}
 	\label{fig:bitmap-graphics}
 \end{figure}
 
@@ -27,147 +21,11 @@ In contrast, vector graphics are not made up of a bitmap. Instead, they are base
 
 Often, programs support the conversion between raster and vector graphics. These are called \emph{rasterization} and \emph{vectorization}. Usually, vector graphics programs allow you to include raster-graphics without conversion.
 
-Let's say you're done for the day and want to submit another great manuscript to Nature (Nature Publishing Group). Nature has detailed requirements on how your figures should be prepared for print (http://www.nature.com/nature/authors/gta/3c\_Final\_artwork.pdf, as of 13.07.2016). According to their guide, they prefer vector graphics for text and line-art. We will revisit the Nature figure requirements as we go along discussing properties of digital images!
+Let's say you're done for the day and want to submit another great manuscript to Nature (Nature Publishing Group). Nature has detailed requirements on how your figures should be prepared for print (http://www.nature.com/nature/authors/gta/3c\_Final\_artwork.pdf, as of 08.10.2014). According to their guide, they prefer vector graphics for text and line-art. We will revisit the Nature figure requirements as we go along discussing properties of digital images!
 
 \begin{verse}
 \emph{Can you explain why journals prefer vector graphics for text and line-art?}
 \end{verse}
-
-\section{Data (file) management, File Formats and Metadata}
-File formats are an important, but dry topic. Every time you share data with colleagues or during the manuscript submission process, you have to work with various formats. This section discusses some basics of formats, focusing on formats suitable for microscopy data (and more general image file formats).
-
-An image file consists of two main parts:
-\begin{enumerate}
-	\item \emph{Header} -- The header contains additional information about your image, such as image type, dimensions, bit-depth, pixel size, microscope settings and general file information. The data in the header is often called \emph{metadata}. Parts of the metadata are as important as the pixel data as they are necessary to interpret the image data (e.g. pixel size, bit-depth). 
-	\item \emph{Content} -- The content of an image file consists of the actual pixel data, the matrix with numerical values. 
-\end{enumerate}
-
-The way the header and the pixel data are organized is determined by the file format. Many general image file formats exists, common are JPEG, PNG, TIFF or GIF. These formats are read by many different software tools across platforms and allow quick previews in all major operating systems. They are therefore very suitable to view and share image data. However, there are some problems with these file formats when we want to use them to store our scientific image data:
-\begin{itemize}
-	\item The format \emph{metadata} might not include essential information about our microscopy data (e.g. pixel size).
-	\item \emph{Bit-depth} choice can be limited (e.g. GIF only allows 8-bit).
-	\item \emph{Multi-dimensional information} might not be supported and extra-dimensions lost when converted (limits apply to all standard formats).
-	\item The format uses \emph{lossy compression} to shrink file size (e.g. JPEG).
-	\item Sometimes, limits on the \emph{maximum number of pixels} in a plane can prevent use for microscopy data.
-\end{itemize}
-
-\minisec{Compression}
-Compression is used to reduce image file sizes. In general, compression methods can be divided into two types: \emph{loss-less} and \emph{lossy} compression. As the names indicate, the original pixel data cannot be reconstructed if lossy compression is employed (information is lost) and the original data can be reconstructed in lossless compression. A typical example of lossless compression is used in PNG. In this format, compression is achieved by shrinking redundant parts. JPEG and GIF are usually lossy formats. In addition to shrinking redundant parts, these formats also interpolate parts of the image to decrease file size even more.  
-
-\begin{quotation}
-	Lossy compression should be avoided to maintain scientific integrity!\\(Unless you know exactly what you are doing)
-\end{quotation}
-
-Limitations of general image file formats led many microscope and image processing software manufacturers to develop their own image file formats (LIF, SCN -- Leica, LSM, ZVI -- Zeiss, ND2 -- Nikon, ...). These formats store all important metadata information and the original pixel data (only loss-less compression used). However, the drawback is that you typically need proprietary software to view these files and access all metadata and that another software you want to use for analysis or display might not be able to read the original data file.
-
-\begin{quotation}
-	The originally acquired files are the most trustworthy -- this is your original, raw data\\You should always keep these files with appropriate backup solutions\footnote{It is also very likely that the funding agency supporting your research has rules how you treat your original data!}.
-\end{quotation}
-
-As you can see, this is a mess for researchers. On the one hand, you want to maintain scientific integrity and adhere to standards concerning your data, but on the other hand, you want to share your data and have easy access for further processing.
-
-Fortunately, the LOCI Bioformats plugin\footnote{http://www.openmicroscopy.org/site/support/bio-formats5/ (as of 24/10/2014)} can import most proprietary file formats and extract most of their metadata in Fiji. There is also significant effort by the Open Microscopy Environment (OME) to provide a standardized file format OME-TIFF that includes rich metadata descriptions suitable for microscopy. This is an ongoing process and if you use this format to store and share data, you have to make sure that all important metadata is actually included.
-
-Journals usually accept common image file formats (if compressed with
-loss-less compression). I would recommend using a vector graphics
-program for final figure preparation (think about text/line art) with
-microscopy images embedded (that have been prepared by e.g. Fiji and/or omero.figure).
-
-\begin{taskbox}{Using Bioformats}
-Let's import a microscope specific file format into Fiji.
-
-\begin{enumerate}
-	\item Open the image sted-confocal.lif in /mod1/data by drag/drop or with \texttt{[Plugins > Bio-Formats > Bio-Formats Importer]}.  
-	\item In the next dialog, you can select various import options (Fig. \ref{fig:bioformats-import-dialog}). Make sure that you load the data into a Hyperstack and tick the Display metadata option.
-	
-	\begin{minipage}[t]{\linewidth}
-		\begin{center}
-		\adjustbox{valign=t}{%
-			\includegraphics[width=0.8\textwidth]{mod1/figures/bioformats-import-dialog.png}%
-		}
-		\medskip
-		\captionof{figure}{Bioformats Import Dialog.}\label{fig:bioformats-import-dialog}
-		\end{center}
-	\end{minipage}
-	
-	\item The next window allows you to select a series. Several microscope image formats are actually libraries of files. In this case, you should see three different files. Open one of the series.
-	\item Two windows are opened. One showing the image, the other showing the metadata information. Scroll through the information and find the Dimension Length, Number of Elements and Unit. Use these values to calculate the pixel size.
-\end{enumerate}
-
-\end{taskbox}
-
-OMERO is a server based database solution to store, manage, view and analyze microscopy image data. It includes the bioformats library and offers interfaces to FIJI (via a plugin) and further popular analysis software such as Cellprofiler, Matlab and Python. Omero excels when you have to cope with many images saved in different file formats. Viewing the images and basic processing steps can be done in one simple interface, metadata can be accessed for image searches and tags, comments and ratings further increase the retrievability of images.
-
-All images in the database are assigned to a single user (owner) and can be shared with other users in the same group. In Omero there are only two levels of hierachical structuring: datasets which contain the images and projects which (optionally) can habour several datasets. Compared to the possibilities of folder structures in common file systems this is a limitation. However, the possibility to tag projects, datasets and images offers a convenient alternative to keep your images in order.
-
-As Omero works as a central database to access your data you need to connect to the Omero by means of a client software. Two options are availabe: The webclient, which you can use with any webbrowser and the Omero.insight client. Furthermore, the insight-Client was adapted as ImageJ plugins which allows to directly open and save images from and to the Omero server in your local Fiji/ImageJ installation. Though the development of the insight-client is to be deprecated soon, it is the only GUI based option to upload new images to the Omero.server.
-
-\begin{taskbox}{Using OMERO}
-
- Now let's try to utilize OMERO and load the image file sted-confocal.lif into the Omero database:
-
-\begin{enumerate}
-\item Start the Omero.insight software. Open the config window by
-  clicking the little wrench and enter the server address http://omero-1.cecad.uni-koeln.de. Enter your credentials an connect to Omero.
-\item Unfold the Display Groups dropdown menu in the toolbar and tick
-  the All Members checkbox in the Fiji-Kurs group.
-\item Start the importer (toolbar icon with blue arrow and colorful
-  circles). Select the file sted-confocal.lif from your local harddrive for upload. Create your own project and dataset, start the import and close the importer when done.
-\item Update the projects view (icon on top of the Project pane) and
-  find your uploaded file. Explore the metadata (acquisition pane, on
-  the right, tag the image ex1-1 (General pane) check if you can
-  download your original data again and leave a comment and a rating
-  to at least one of the images.
-\item Close the insight client, start the webclient (i.e. open
-  http://omero-1.cecad.uni-koeln.de in your favorite webbrowser), find your image and compare the handling of insight and webclient.
-\item Now try to load the image from Omero in Fiji. If the required plugin is already installed, you will find the entry OMERO in the Plugins Menu. Select Connect to OMERO. Login again and choose your image in the Omero window.
-	
-\end{enumerate}
-
-\end{taskbox}
-
-!@#$%^
-
-\begin{taskbox}{Scale Bars}
-Let's explore one thing you usually have to include in your microscopy data: a scale bar that indicates the size of each pixel.
-
-\begin{enumerate}
-	\item Open the image sted-confocal.lif in /mod1/data by drag/drop or with \texttt{[Plugins > Bio-Formats > Bio-Formats Importer]}.  
-	\item We now want to add a scale bar to our image. In this case, Fiji already knows the pixel size - let us check whether our previous calculations were correct. Go to \texttt{[Analyze > Set Scale...]}. This dialog should show you how many pixels are in one micrometer (Fig. \ref{fig:set-scale-dialog}).
-	
-	\begin{minipage}[t]{\linewidth}
-		\begin{center}
-		\adjustbox{valign=t}{%
-			\includegraphics[width=0.4\textwidth]{mod1/figures/set-scale-dialog.png}%
-		}
-		\medskip
-		\captionof{figure}{Set Scale Dialog.}\label{fig:set-scale-dialog}
-		\end{center}
-	\end{minipage}
-	
-	\item In case you have an image where information about the scale is visible in the image itself, you can then measure the length with a line and include this information in the dialog. Clicking on Global helps if you take one image of a micro-scale and want to use this information in other images you took with the same settings (e.g. on a small Lab-Microscope).
-	\item Let's add a scale bar now. Use [Analyze > Tools > Scale Bar]. Similar to the calibration bar, the dialog lets you adjust various visual parameters (Fig. \ref{fig:scale-bar-dialog}).
-
-
-        
-	\begin{minipage}[t]{\linewidth}
-		\begin{center}
-		\adjustbox{valign=t}{%
-			\includegraphics[width=0.4\textwidth]{mod1/figures/scale-bar-dialog.png}%
-		}
-		\medskip
-		\captionof{figure}{Scalebar Dialog.}\label{fig:scale-bar-dialog}
-		\end{center}
-	\end{minipage}
-	\item Now open the file using Omero.insigth again. Double
-          click the image to open a viewer window. Use the Display
-          menu to add and adjust a scalebar. Export the image (toolbar
-          icon with image and red arrow).
-\end{enumerate}
-
-\end{taskbox}
-
-
 
 \section{Pixels, spatial resolution and sampling frequency}
 \label{sec:mod1-samplingrate}
@@ -197,18 +55,9 @@ As you saw above, we determine the number of pixels during image acquisition acc
 
 \minisec{Image resolution outside microscopy}
 
-In printed images and in document scanners, resolution is often given in \emph{DPI (Dots Per Inch)}, the number of dots within a line that spans 1 inch (2.54 cm). Computer screen, tablet or phone resolution is typically given in \emph{PPI (Pixels Per Inch)}, the number of pixels within a line that spans 1 inch. Confusingly, DPI is often used when PPI would be better, and even more confusingly, one printer dot is usually not equal to one pixel! 
+In printed images and in document scanners, resolution is often given in \emph{DPI (Dots Per Inch)}, the number of dots within a line that spans 1 inch (2.54 cm). Computer screen, tablet or phone resolution is typically given in \emph{PPI (Pixels Per Inch)}, the number of pixels within a line that spans 1 inch. Confusing, DPI is often used when PPI would be better, and even more confusing, one printer dot is usually not equal to one pixel! 
 
-As we learned in section \ref{sec:mod1-samplingrate}, knowing the
-number of pixels is not sufficient to define the resolution -- pixel
-size (sampling rate, distance of pixels, ..) is necessary as
-well. This is also true for consumer products such as digital cameras,
-smartphones or flatscreen TVs. Knowing that a Full HD TV is capable of
-displaying 1920 x 1080 pixels presents no information about the size
-of each pixel. An 18 mega-pixel camera that is able to generate photos
-with 5184 x 3456 pixels also has no resolution associated. For
-screens, we can calculate the PPI by dividing the number of pixels by
-the size of the screen. For example, a 40'' Full HD TV (1920 x 1080) would have 55.07 PPI an Amazon Kindle Paperwhite 212 PPI (6'', 1024 x 758). 
+As we learned in section \ref{sec:mod1-samplingrate}, knowing the number of pixels is not sufficient to define the resolution -- pixel size (sampling rate, distance of pixels, ..) is necessary as well. This is also true for consumer products such as digital cameras, smartphones or flatscreen TVs. Knowing that a Full HD TV is capable of displaying 1920 x 1080 pixels presents no information about the size of each pixel. An 18 mega-pixel camera that is able to generate photos with 5184 x 3456 pixels also has no resolution associated. For screens, we can calculate the PPI by dividing the number of pixels by the size of the screen. For example, a 40'' Full HD TV would have 55.07 PPI, an IPhone 5 about 326 PPI (4'', 1640 x 1136 pixels but two dots per pixel!), an Amazon Kindle Paperwhite 212 PPI (6'', 1024 x 758). 
 
 High quality photo printing requires about 200-300 PPI. With the number of pixels of our digital camera, we can calculate the maximum size of a high-quality print. For example, an 18 mega-pixel camera print with at least 200 PPI: 
 
@@ -216,7 +65,7 @@ High quality photo printing requires about 200-300 PPI. With the number of pixel
 	18 mega-pixel = 5184 x 3456 pixels, divided by 200 PPI results in a print of about 65 x 43 cm (1 inch = 2.54 cm).
 \end{quotation}
 
-Publishers usually require that you submit your figures in 300-600 DPI (meaning PPI), depending on the content (e.g. see the requirements of Nature\footnote{http://www.nature.com/nature/authors/gta/3c\_Final\_artwork.pdf, as of 13.07.2016} or PNAS\footnote{http://www.pnas.org/site/misc/digitalart.pdf, as of 07.10.2016}). This already determines the maximum size of your (sub)figure given available pixels. 
+Publishers usually require that you submit your figures in 300-600 DPI (meaning PPI), depending on the content (e.g. see the requirements of Nature\footnote{http://www.nature.com/nature/authors/gta/3c\_Final\_artwork.pdf, as of 08.10.2014} or PNAS\footnote{http://www.pnas.org/site/misc/digitalart.pdf, as of 04/03/2015}). This already determines the maximum size of your (sub)figure given available pixels. 
 
 \begin{taskbox}{Resampling Example - No Interpolation}
 
@@ -283,14 +132,7 @@ Let us go back to our main question of making figures for a manuscript that we w
 	\item Never resample more than once during image processing.
 	\item Do the resampling at the end, after all other image manipulations and quantifications have been done.	
 	\item Report any resampling procedures, including the original image size, pixel dimensions and the interpolation method.
-	\item Most journals allow supplementary original data - a good
-          way to present the raw, unfiltered data. Also, there is
-          increasing interest to provide platforms that allow you to
-          publish raw data (e.g. IDR or
-          Figshare\footnote{http://idr.openmicroscopy.org an online,
-            public data repository which seeks to store, integrate and
-            serve image datasets from published scientific studies and
-            http://www.figshare.com, an online digital repository - free to upload and free to access; as of 13.10.2017})
+	\item Most journals allow supplementary original data - a good way to present the raw, unfiltered data. Also, there is increasing interest to provide platforms that allow you to publish raw data (e.g. Figshare\footnote{www.figshare.com, an online digital repository - free to upload and free to access; as of 13.10.2014})
 	\item Most important if you really have to resample: Convince yourself (and your lab-mates) that the original image and the re-sampled image convey the same information.
 \end{itemize}
 
@@ -536,10 +378,10 @@ Outside microscopy, two colorspaces are very common:
 \begin{taskbox}{RGB Images}
 
 \begin{enumerate}
-	\item Open the file muscle-cell.tif in /mod1/data This image was taken from a publication in Nature Cell Biology 5, 598(2003); Cell of the Month: The vascular smooth muscle cell cytoskeleton; Mario Gimona; DOI:10.1038.ncb0703-598. This RGB image shows mouse smooth muscle cell with fluorescent labels of the cytoskeleton. Use \texttt{[Image > Show Info...]} for details about this image.
+	\item Open the file muscle-cell.tif in /mod1/data\. This image was taken from a publication in Nature Cell Biology 5, 598(2003); Cell of the Month: The vascular smooth muscle cell cytoskeleton; Mario Gimona; DOI:10.1038.ncb0703-598. This RGB image shows mouse smooth muscle cell with fluorescent labels of the cytoskeleton. Use \texttt{[Image > Show Info...]} for details about this image.
 	\item Use \texttt{[Image > Adjust > Brightness/Contrast]} and change the slider values. Observe that this operation affects all colors simultaneously. Reset the changes.
 	\item We now split the red, green and blue channels of the RGB image with \texttt{[Image > Color > Split Channels]}. Three windows appear, each showing the respective color content. 
-	\item Let's combine these channels again with \texttt{[Image > Color > Merge Channels]}. The merge-function gives us many options to create a merged image (Fig. \ref{fig:merge-channels-dialog}). Do not set any options and use the same color channels.
+	\item Let's combine these channels again with \texttt{[Image > Color > Merge Channels]}. The merge-function gives us many options to create a merged image (Fig. \ref{fig:merge_channels_dialog}). Do not set any options and use the same color channels.
 	
 	\begin{minipage}[t]{\linewidth}
 		\begin{center}
@@ -564,7 +406,7 @@ Outside microscopy, two colorspaces are very common:
 		\end{center}
 	\end{minipage}
 	
-	\item Try to perform already known operations on just one color channel, e.g. adjust the brightness (you can see that the little histogram changes color when you change the channel!).
+	\item Try to perform already know operations on just one color channel, e.g. Adjust the brightness (you can see that the little histogram changes color when you change the channel!).
 \end{enumerate}
 
 \end{taskbox}
@@ -693,20 +535,13 @@ To illustrate working with 5D data, we will import a sequence of files that are 
 		\end{center}
 	\end{minipage}
 	
-	\item The imported image shows three sliders: channel (2), z-position(5), time-stamps(51). Browse through the image, adjust Brightness if necessary. One thing to notice is that we lost information about the z-spacing, distance between time-stamps or channel colors.
+	\item The imported image shows three sliders: channel (2), z-position(5), time-stamps(51). Browse through the image, adjust Brightness if necessary. On thing to notice is that we lost information about the z-spacing, distance between time-stamps or channel colors.
 \end{enumerate}
 
 \end{taskbox}
 
 \subsection{Visualizing Multidimensional Data}
-You already worked with the most basic visualization of
-multidimensional data that only displays two dimensions at a time. In
-this view, you can browse through the dimensions by adjusting the
-sliders. Another view we already discussed is the image montage. Both
-of these visualizations are also valid options to present the data in
-a figure. In general, visualizing multi-dimensional data is
-non-trivial, as we are constrained by the physical limitations of our
-available display hardware and our visual sense. In this section, we will look at some common visualization techniques for multi-dimensional microscopy data that are useful to highlight certain aspects of your data in a figure.
+You already worked with the most basic visualization of multidimensional data that only displays two dimensions at a time. In this view, you can browse through the dimensions by adjusting the sliders. Another view we already discussed is the image montage. Both of these visualizations are also valid options to present the data in a figure. In general, visualizing multi-dimensional data is non-trivial, as we are constrained by the physical limitations of our visual sense. In this section, we will look at some common visualization techniques for multi-dimensional microscopy data that are useful to highlight certain aspects of your data in a figure.
 
 \begin{taskbox}{Projection (Dimensionality reduction)}
 The first visualization we will explore is the projection. In a projection, data is summarized along one axis (dimension). A typical case is the maximum intensity projection of the z-axis of a 3D stack, resulting in a 2D image where each pixel represents the maximum value that was found in this \emph{(x,y)} position along \emph{z} - which is then used for the manuscript. In Fiji, you can choose between the minimum, average or maximum intensity projection and the sum, standard deviation or median of each pixel along \emph{z}. Remember that you can swap dimensions with \texttt{[Image > Hyperstack > Re-order Hyperstack]}.
@@ -741,7 +576,7 @@ Another very common visualization is the orthogonal view. In this view, two addi
 
 \newpage
 \begin{taskbox}{Color Coding}
-One option to add a third dimension on a 2-dimensional plot is to somehow code the information; e.g. using different colors for z-depth or time. This can be useful when the data is structured along one axis, e.g. different layers of cells within a tissue, axons growing into other tissue parts or vesicles moving around over time.
+One option to add a third dimension on a 2-dimensional plot is to somehow code the information; e.g. using different colors for z-depth or time. This can be useful when the data is structured along on axis, e.g. different layers of cells within a tissue, axons growing into other tissue parts or vesicles moving around over time.
 
 \begin{enumerate}
 	\item Open the image fake-tracks.tif from /mod1/data (another Fiji sample image). We use a fake file to better illustrate how the color coding works, but you can apply it to any 3D data for further testing. Perform [Image > Hyperstacks > Temporal-Color Code] and select a LUT of your choice (Fig. \ref{fig:color-code-dialog}).
@@ -762,7 +597,7 @@ One option to add a third dimension on a 2-dimensional plot is to somehow code t
 \end{taskbox}
 
 \begin{taskbox}{Generating a Kymograph Plot}
-A Kymograph is an visualization to present a dynamic process in a single image where movements along a line are plotted for all time-frames in a stack (\emph{x-t} plot). Therefore, it is also a way to deruce dimensionality. They are common to show cellular components moving along some path (e.g. mitochondria moving along an axon or cells migrating in reference to a body axis during development).
+A Kymograph is an visualization to present a dynamic process in a single image where movements along a line are plotted for all time-frames in a stack (\emph{x-t} plot). Therefore, it is also a way to deruce dimensionality. They are common to show cellular components moving along a some path (e.g. mitochondria moving along an axon or cells migrating in reference to a body axis during development).
 
 \begin{enumerate}
 	\item Open the stack axon-mitos.tif from /mod1/data (Image by Arun Akondadi, Rugarli Lab, University of Cologne). Adjust Brightness. This image shows mitochondria moving along an axon.
@@ -780,7 +615,7 @@ A Kymograph is an visualization to present a dynamic process in a single image w
 	\end{minipage}
 	
 	\item Go to the original stack and do \texttt{[Edit > Selection > Restore Selection]}. This restores the line we just selected on the maximum projection on the stack.
-	\item Use \texttt{[Image > Stack > Reslice]} to generates the Kymograph. For display reasons, you can also invert the image with \texttt{[Edit > Invert]} and Adjust the Brightness.
+	\item Use \texttt{[Image > Stack > Reslice]} to generate the Kymograph. For display reasons, you can also invert the image with \texttt{[Edit > Invert]} and Adjust the Brightness.
 	\item If the line was placed correctly, you should see something similar to Fig. \ref{fig:kymograph}. The kymograph helps to distinguish stationary mitochondria and we can sometimes even distinguish anterograde from retrograde movement (in reference to soma).	
 	
 	\begin{minipage}[t]{\linewidth}
@@ -815,27 +650,106 @@ Instead of trying to visualize our data in 2 dimensions, we can also visualize i
 	\end{minipage}
 	
 	\item Depending on your hardware, this might take a while to display. Try to navigate the 3D view with your mouse. 
-	\item Let us try to generate a movie that you can save as an avi file. Use the 3D viewer menu to create a simple 360 degree rotation with \texttt{[View > Record 360 degree rotation]}. This generate a stack that you can now save as a movie using \texttt{[File > Save As > AVI]}. In this dialog, you can set the compression as well as the frame rate (how fast the movie is displayed). For our purposes, we set the compression to uncompressed and the Frame Rate to 15 fps (frames-per-second). Movie generation for journals can also be a tricky thing as they often impose strict size limits and require specific formats. You often need to adjust the movie size as well as the compression algorithm to adhere to these requirements and the choice of both can be complicated. However, you can usually accept some compression artefacts as movies are often not considered raw data but more of a nice additional visualization. Still, make sure that you adhere to scientific principles and tell specifically how you treated your data to generate the movie.
-	\item Further instructions on the 3D viewer can be found at: http://3dviewer.neurofly.de/; the website of the developers (as of 13.10.2017).
+	\item Let us try to generate a movie that you can save as an avi file. Use the 3D viewer menu to create a simple 360 degree rotation with \texttt{[View > Record 360 degree rotation]}. This generate a stack that you can now save as a movie using \texttt{[File > Save As > AVI]}. In this dialog, you can set the compression as well as the frame rate (how fast the movie is displayed). For our purposes, we set the compression to uncompressed and the Frame Rate to 15 fps (frames-per-second). Movie generation for journals can also be a tricky thing as they often impose strict size limits and requires specific formats. You often need to adjust the movie size as well as the compression algorithm to adhere to these requirements and the choice of both can be complicated. However, you can usually accept some compression artefacts as movies are often not considered raw data but more of a nice additional visualization. Still, make sure that you adhere to scientific principles and tell specifically how you treated your data to generate the movie.
+	\item Further instructions on the 3D viewer can be found at: http://3dviewer.neurofly.de/; the website of the developers (as of 28.10.2014).
 \end{enumerate}
 
 \end{taskbox}
 
+\section{File Formats}
+File formats are an important, but dry topic. Every time you share data with colleagues or during the manuscript submission process, you have to work with various formats. This section discusses some basics of formats, focusing on formats suitable for microscopy data (and more general image file formats).
 
-\section{Figure creation using Omero.figure}
-A very convenient way to create publishable figures is to use the
-OMERO.figure plugin which allows many of the operations discussed in
-this chapter.
-\begin{taskbox}{Omero.figure}
+An image file consists of two main parts:
 \begin{enumerate}
-	\item Open the Omero.web client. Select one of the images from
-          confocal-sted.lif from exercise 1-1, right-click the image
-          and select Open with > Omero.figure.
-          \item Watch the videos Getting started (\url{https://www.youtube.com/watch?time_continue=25&v=8ZKAcowl4Tk}) and Adding scalebars
-            and labels (\url{https://www.youtube.com/watch?time_continue=15&v=qzSPFGlRHNQ}).
-            \item Now create a figure with scale and label,
-              emphasizing the improved resolution of STED compared to
-              standard confocal image acquisition.
+	\item \emph{Header} -- The header contains additional information about your image, such as image type, dimensions, bit-depth, pixel size, microscope settings and general file information. The data in the header is often called \emph{metadata}. Parts of the metadata are as important as the pixel data as they are necessary to interpret the image data (e.g. pixel size, bit-depth). 
+	\item \emph{Content} -- The content of an image file consists of the actual pixel data, the matrix with numerical values. 
+\end{enumerate}
+
+The way the header and the pixel data are organized is determined by the file format. Many general image file formats exists, common are JPEG, PNG, TIFF or GIF. These formats are read by many different software tools across platforms and allow quick previews in all major operating systems. They are therefore very suitable to view and share image data. However, there are some problems with these file formats when we want to use them to store our scientific image data:
+\begin{itemize}
+	\item The format \emph{metadata} might not include essential information about our microscopy data (e.g. pixel size).
+	\item \emph{Bit-depth} choice can be limited (e.g. GIF only allows 8-bit).
+	\item \emph{Multi-dimensional information} might not be supported and extra-dimensions lost when converted (limits apply to all standard formats).
+	\item The format uses \emph{lossy compression} to shrink file size (e.g. JPEG).
+	\item Sometimes, limits on the \emph{maximum number of pixels} in a plane can prevent use for microscopy data.
+\end{itemize}
+
+\minisec{Compression}
+Compression is used to reduce image file sizes. In general, compression methods can be divided into two types: \emph{loss-less} and \emph{lossy} compression. As the names indicate, the original pixel data cannot be reconstructed if lossy compression is employed (information is lost) and the original data can be reconstructed in lossless compression. A typical example of lossless compression is used in PNG. In this format, compression is achieved by shrinking redundant parts. JPEG and GIF are usually lossy formats. In addition to shrinking redundant parts, these formats also interpolate parts of the image to decrease file size even more.  
+
+\begin{quotation}
+	Lossy compression should be avoided to maintain scientific integrity!\\(Unless you know exactly what you are doing)
+\end{quotation}
+
+Limitations of general image file formats led many microscope and image processing software manufacturers to develop their own image file formats (LIF, SCN -- Leica, LSM, ZVI -- Zeiss, ND2 -- Nikon, ...). These formats store all important metadata information and the original pixel data (only loss-less compression used). However, the drawback is that you typically need proprietary software to view these files and access all metadata and that another software you want to use for analysis or display might not be able to read the original data file.
+
+\begin{quotation}
+	The originally acquired files are the most trustworthy -- this is your original, raw data\\You should always keep these files with appropriate backup solutions\footnote{It is also very likely that the funding agency supporting your research has rules how you treat your original data!}.
+\end{quotation}
+
+As you can see, this is a mess for researchers. On the one hand, you want to maintain scientific integrity and adhere to standards concerning your data, but on the other hand, you want to share your data and have easy access for further processing.
+
+Fortunately, the LOCI Bioformats plugin\footnote{http://www.openmicroscopy.org/site/support/bio-formats5/ (as of 24/10/2014)} can import most proprietary file formats and extract most of their metadata in Fiji. There is also significant effort by the Open Microscopy Environment (OME) to provide a standardized file format OME-TIFF that includes rich metadata descriptions suitable for microscopy. This is an ongoing process and if you use this format to store and share data, you have to make sure that all important metadata is actually included.
+
+Journals usually accept common image file formats (if compressed with loss-less compression). I would recommend using a vector graphics program for final figure preparation (think about text/line art) with microscopy images embedded (that have been prepared by e.g. Fiji).
+
+\begin{taskbox}{Using Bioformats}
+Let's import a microscope specific file format into Fiji.
+
+\begin{enumerate}
+	\item Open the image sted-confocal.lif in /mod1/data by drag/drop or with \texttt{[Plugins > Bio-Formats > Bio-Formats Importer]}.  
+	\item In the next dialog, you can select various import options (Fig. \ref{fig:bioformats-import-dialog}). Make sure that you load the data into a Hyperstack and tick the Display metadata option.
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.8\textwidth]{mod1/figures/bioformats-import-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Bioformats Import Dialog.}\label{fig:bioformats-import-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item The next window allows you to select a series. Several microscope image formats are actually libraries of files. In this case, you should see three different files. Open one of the series.
+	\item Two windows are opened. One showing the image, the other showing the metadata information. Scroll through the information and find the Dimension Length, Number of Elements and Unit. Use these values to calculate the pixel size.
 \end{enumerate}
 
 \end{taskbox}
+
+\begin{taskbox}{Scale Bars}
+Let's explore one final thing you usually have to include in your microscopy data: a scale bar that indicates the size of each pixel.
+
+\begin{enumerate}
+	\item Open the image sted-confocal.lif in /mod1/data by drag/drop or with \texttt{[Plugins > Bio-Formats > Bio-Formats Importer]}.  
+	\item We now want to add a scale bar to our image. In this case, Fiji already knows the pixel size - let us check whether our previous calculations were correct. Go to \texttt{[Analyze > Set Scale...]}. This dialog should show you how many pixels are in one micrometer (Fig. \ref{fig:set-scale-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1/figures/set-scale-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Set Scale Dialog.}\label{fig:set-scale-dialog}
+		\end{center}
+	\end{minipage}
+	
+	\item In case you have an image where information about the scale is visible in the image itself, you can then measure the length with a line and include this information in the dialog. Clicking on Global helps if you take one image of a micro-scale and want to use this information in other images you took with the same settings (e.g. on a small Lab-Microscope).
+	\item Let's add a scale bar now. Use [Analyze > Tools > Scale Bar]. Similar to the calibration bar, the dialog lets you adjust various visual parameters (Fig. \ref{fig:scale-bar-dialog}).
+	
+	\begin{minipage}[t]{\linewidth}
+		\begin{center}
+		\adjustbox{valign=t}{%
+			\includegraphics[width=0.4\textwidth]{mod1/figures/scale-bar-dialog.png}%
+		}
+		\medskip
+		\captionof{figure}{Scalebar Dialog.}\label{fig:scale-bar-dialog}
+		\end{center}
+	\end{minipage}
+	
+\end{enumerate}
+
+\end{taskbox}
+
+\section{Figure publishing plugins for Fiji}
+If you want to generate your figures completely in Fiji, there are great (published) plugins available that help you with this task (http://fiji.sc/2013-11-04\_-\_Plugins\_for\_making\_scientific\_Figures. as of 25/02/2015). The FigureJ plugin lets you specify a figure canvas on which you can place various images with labels and scale bars (http://imagejdocu.tudor.lu/doku.php?id=plugin:utilities:figurej:start, as of 25/02/2015).
+

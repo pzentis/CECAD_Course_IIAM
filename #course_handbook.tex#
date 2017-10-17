@@ -1,4 +1,4 @@
-\documentclass[12pt,twoside, parskip=half, headsepline=on, chapterprefix=true, draft=off]{scrbook}
+\end\documentclass[12pt,twoside, parskip=half, headsepline=on, chapterprefix=true, draft=off]{scrbook}
 
 \usepackage[english]{babel}
 \usepackage[T1]{fontenc}
@@ -8,7 +8,6 @@
 \usepackage{amsmath}
 \usepackage{caption}
 \usepackage{color}
-\usepackage{hyperref}
 \usepackage{adjustbox}
 \usepackage[breakable,skins]{tcolorbox}
 
@@ -17,7 +16,7 @@
 \definecolor{shadecolor}{gray}{0.5}
 
 %\usepackage{hyperref}
-%\hypersetup{colorlinks=true, urlcolor=[rgb]{0.25,0.41,0.88}, linkcolor=[rgb]{0.25,0.41,0.88}, pdftitle=Course, pdfauthor=Peter Zentis, pdfsubject=, pdfkeywords=}
+%\hypersetup{colorlinks=true, urlcolor=[rgb]{0.25,0.41,0.88}, linkcolor=[rgb]{0.25,0.41,0.88}, pdftitle=Course, pdfauthor=Niko, pdfsubject=, pdfkeywords=}
 \usepackage{scrlayer-scrpage}
 
 \ihead{CECAD -- IIAM} 
@@ -48,7 +47,8 @@
 % title 
 \title{An Introduction to Image Analysis in Microscopy}
 \subtitle{CECAD Imaging Facility Course, v1.2} 
-\author{Nikolay Kladt \and Peter Zentis}
+\author{Nikolay Kladt}
+\author{Peter Zentis}
 \date{\today}
 \publishers{Imaging Facility\\Cluster of Excellence -- Cellular Stress Responses in Aging-Associated Diseases\\University of Cologne}
 
