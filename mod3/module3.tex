@@ -340,7 +340,7 @@ Image segmentation is a process where every pixel in an image obtains a label, s
 
 \subsection{Thresholding}
 
-A very simple and easy to understand image segmentation method is called \emph{thresholding}. In this method, each pixel belongs to one of two groups: background or foreground (black or white, object or not object). For images obtained with fluorescence microscopy, this is easy to understand: we typically have dark background with light objects. Thresholding image $f\left(x,y\right)$ with a thresholt $T$ then leads to extraction of the objects in image $g\left(x,y\right)$:
+A very simple and easy to understand image segmentation method is called \emph{thresholding}. In this method, each pixel belongs to one of two groups: background or foreground (black or white, object or not object). For images obtained with fluorescence microscopy, this is easy to understand: we typically have dark background with light objects. Thresholding image $f\left(x,y\right)$ with a threshold $T$ then leads to extraction of the objects in image $g\left(x,y\right)$:
 	\[
 		g\left(x,y\right)=\begin{cases}
 		1 &\text{if } f\left(x,y\right)>T\\

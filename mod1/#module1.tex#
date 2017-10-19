@@ -126,6 +126,7 @@ As Omero works as a central database to access your data you need to connect to 
 
 \end{taskbox}
 
+!@#$%^
 
 \begin{taskbox}{Scale Bars}
 Let's explore one thing you usually have to include in your microscopy data: a scale bar that indicates the size of each pixel.
@@ -824,59 +825,17 @@ Instead of trying to visualize our data in 2 dimensions, we can also visualize i
 \section{Figure creation using Omero.figure}
 A very convenient way to create publishable figures is to use the
 OMERO.figure plugin which allows many of the operations discussed in
-this chapter. On the Omero.figure website you can find useful resources like a Getting Started video tutorial (\url{http://figure.openmicroscopy.org/}).
+this chapter.
+\begin{taskbox}{Omero.figure}
+\begin{enumerate}
+	\item Open the Omero.web client. Select one of the images from
+          confocal-sted.lif from exercise 1-1, right-click the image
+          and select Open with > Omero.figure.
+          \item Watch the videos Getting started (\url{https://www.youtube.com/watch?time_continue=25&v=8ZKAcowl4Tk}) and Adding scalebars
+            and labels (\url{https://www.youtube.com/watch?time_continue=15&v=qzSPFGlRHNQ}).
+            \item Now create a figure with scale and label,
+              emphasizing the improved resolution of STED compared to
+              standard confocal image acquisition.
+\end{enumerate}
 
-\begin{taskbox}{Omero.figure - Image with scalebar}
-  \begin{enumerate}
-    \item Login into Omero.web. Find the image sted-confocal.lif [Fab
-    Antikoerper] in the projects pane and right-click on the entry in
-    the Project Explorer file list.
-    \item In the context menu, select [Open with > Omero.figure]
-    \item A new figure window with the selected image opens up. First of
-    all, press the \textbf{Save} button.
-    \item To make sure our image is the active element in the figure,
-    click on the image. Then have a look at the Info tab of the
-    tool panel. Adjust the width and height until the image has a
-    resolution of about 300 dpi.
-    \item Now select the Preview tab. Change the color of the LUT and
-    adjust the brightness as you like.
-    \item Now, select the Labels tab. Add a scalebar (\textbf{Show} button)
-    activate the scalebar label and adjust position, size and color of the
-    scalebar as you like.
-    \item Add some text to the figure legend. Try the suggested Markdown
-    syntax if you like.        
-    \item \textbf{Save} the figure again. \textbf{Export} to pdf, Tiff (300dpi), and
-    new Omero Image.
-    \item Note that the exported figures were added as
-    attachement to the original image.
-  \end{enumerate}
 \end{taskbox}
-
-
-\begin{taskbox}{Omero.figure - Creating multipanel figures}
-  \begin{enumerate}
-    \item Add another page to the figure [File > Paper Setup... > Number of
-    Pages]
-    \item Select the new page. Now we would like to add the image sted-confocal.lif [Overlay001]. So change back to the project
-    explorer and select the image (Left-click). In the top left corner
-    of the General tab, click the Link button (chain symbol) and copy the link from
-    the popup. Switch back to the Figure-tab and click the \textbf{Add Image}
-    button in the menu bar. Paste the link into the textbox and click
-    \textbf{Add Image}.
-    \item Move the image to the second page of the figure. In the Info tab click on the chain symbol to lock the aspect ratio of the image, then change the width to 150. Click the  \textbf{Set dpi} button and enter a value of 600 dpi.
-    \item Switch to the Preview tab. Change LUT of the second channel to red and adjust the brightness of the individual channels.
-    \item Switch to the Labels tab. Press the \textbf{Edit} button. Draw a small square shaped ROI (press shift while drawing) in an interesting region of the image. Set the line thickness to 10, choose a color.
-    \item Press the \textbf{Show} button in the Scalebar section. Adjust size and color switch on the label.
-    \item Write 'Merged' in the textbox in the Add Labels section. Change the font size to 18 and make sure position is set to Top. Click \textbf{Add}. Now replace 'Merged' in the textbox by  'Overview', switch Position to Left Vertical and click \textbf{Add} again.
-    \item Copy and paste the image five times. Arrange them into two row of three images. After roughly moving the images in place, select them all and use the\textbf{Align to Grid} button in the menu bar for quick alignment.
-    \item Select the second image in the first row. Switch to the Preview tab and switch off the second channel. Now switch to the Labels tab. Delete the Overview label. Change the 'Merged' label to 'Confocal'.
-    \item Select the third image in the first row. Switch to the Preview tab and switch off the first channel. Now switch to the Labels tab. Delete the Overview label. Change the 'Merged' label to 'STED'.
-    \item Select the first image in the second row. In the Labels tab delete the Merged label and change the 'Overview' label to 'Magnified ROI'.
-    \item Switch to the Preview tab. Press the \textbf{Crop} button. Select the ROI from figure and click \textbf{OK}. Confirm the deletion of the ROI in the cropped image. In the Labels tab adjust the scalebar size if necessary.
-    \item In the further images switch off one channel as in the first row, delete all labels, crop and adjust scalebars in the same way.
-    \item Save the figure.
-  \end{enumerate}
-  
-\end{taskbox}
-
-
