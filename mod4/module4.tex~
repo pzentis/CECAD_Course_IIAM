@@ -1,0 +1,39 @@
+\chapter{Working with objects - Generalized image analysis workflows}
+
+In the module 'Measuring Intensities', you explored how you can manually define a region of interest and perform intensity measurements on this region. While this is already a commonly found approach, the manual labor can be very tedious or impossible with given resources. Another aspect that is often neglected is the possible (and likely) introduction of bias - outside actual clinical studies, a double blind approach is very uncommon. This module will present all components of a generalized image analysis workflow:
+
+\begin{enumerate}
+	\item Obtain raw image data. In this course, we assume that raw image data already exists and that this image data is suitable for the necessary analysis.
+	\item Image visualization and preprocessing. This typically involves simple pixel operations and multiple image filters.
+	\item Identify objects of interest (image segmentation). The preprocessed image is used to generate pixel label maps; in a simple case, this is based on a binary image (black = background, white = objects of interest).
+	\item Manipulate objects. The detected objects are modified and enhanced. For example, this can involve cleaning object boundaries, removing holes, splitting or merging objects.
+	\item Perform measurements. In the last step, you convert the finally identified objects into numbers for further (statistical) analysis. For example, the derived numbers can be based on intensity, shape, texture or object relationships.
+\end{enumerate}
+
+\section{Image preprocessing}
+
+We now generalize the concept of pixel operations by looking at an image as a discrete function. For a 2D image, $f(x,y)$ maps from $R^2$ to $R$, giving the intensity at position $(x,y)$. In this view, any pixel operation $o$ can be expressed as $g\left(x,y\right)=o\left(f\left(x,y\right)\right)$, where $g(x,y)$ is the modified image. The operations we already know are either simple arithmetic- or histogram-based methods. 
+
+Another type of very powerful operations is the \emph{image filter}. Often, image preprocessing involves the (sequential) application of various image filters. Image filters are local operations where the \emph{neighborhood} (surrounding pixels) of each pixel determines the new intensity value. The pixel neighborhood is also called the \emph{kernel}. These filters are mainly used to smooth the image (suppress high frequencies) or enhance edges (suppress low frequencies).
+
+Image filters can be performed on the spatial domain (the image you know with x/y/z axes) or on the frequency domain (Fourier transformed image). For simplicity, we completely skip the Fourier transform, frequency domain filtering and the mathematical reasoning why it can make sense to transform an image into the frequency domain, perform (linear) filtering, and transform the image back to the spatial domain. Furthermore, we will restrict our explanations and examples to 2 dimensional (discrete) images. 
+
+\subsection{Convolution, Correlation \& Kernels}
+
+Convolution is the mathematical operation behind many of the image filters we will discuss. As described, the basic idea is that a neighborhood of pixels, a window with finite size and shape, is placed on top of each pixel and that the new pixel value is determined by the weighted sum of all pixels within this neighborhood. This window with the weights is called the \emph{kernel}. 
+
+Again, we look at the image as a matrix of pixels and do the same for the kernel, the neighborhood with the weights. We then perform the weighted sum of all pixels within the kernel and repeat for every pixel in our image (Fig. \ref{fig:convolution-example}).
+
+\begin{figure}[!ht]
+	\centering
+		\includegraphics[width=0.70\textwidth]{mod3/figures/convolution-example.png}
+	\caption{Convolution example. A single location of a 2D convolution is shown. The image was taken from \cite{MacDev2011}}
+	\label{fig:convolution-example}
+\end{figure}
+
+If we want to convolve a pixel at position $(x,y)$ of an image $F$ with the rectangular kernel $K$, centered around $(x,y)$, with width $\omega$, we can write:
+\[
+	\left[F\ast K\right]\left(x,y\right)=\sum_{i=-\omega}^{i=\omega}\sum_{j=-\omega}^{j=\omega}K\left(i,j\right)\cdot F\left(x-i,y-j\right)
+\]
+
+For better illustration, let us perform the convolution on a small example, we average an image showing a vertical white line on black background with a 3x3 smoothing kernel (this operation is explained below):
